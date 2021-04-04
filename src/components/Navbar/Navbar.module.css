@@ -1,0 +1,41 @@
+.nav {
+  grid-area: n;
+  background-color: lightgrey;
+  padding-left: 2vw;
+}
+
+.nav2 {
+  padding: 20px 0;
+}
+
+/*.item {
+  color: white;
+} */
+
+.item a {
+  text-decoration: none;
+  color: white;
+}
+
+.item a.activeLink {
+  color: tomato;
+  font-weight: bold;
+}
+
+.friends {
+  margin: 25px 0;
+}
+
+.friendsblock {
+  display: flex;
+}
+
+.friendsblock > div {
+  padding: 0 10px;
+}
+
+.friends img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}

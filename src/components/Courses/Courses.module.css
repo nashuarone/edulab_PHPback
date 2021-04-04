@@ -1,0 +1,37 @@
+.coursesPage {
+  margin: 10px;
+}
+.courseItem {
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  border-radius: 3px;
+  background: white;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+.coursePicture {
+  width: 36%;
+}
+.coursePicture > img {
+  width: 100%;
+}
+.reactPlayer {
+  width: 100%;
+  height: 100%;
+}
+.tittleDecor {
+  font-weight: bold;
+}
+.descriptionItem {
+  padding: 20px;
+  width: 70%;
+}
+.courseDescription {
+  padding: 20px 0;
+}
+.editModeRed {
+  box-shadow: 0px 0px 10px 5px rgba(255,0,0,0.5) inset;
+  padding: 10px 0px;
+}

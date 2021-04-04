@@ -1,0 +1,45 @@
+.mainProfile {
+  display: flex;
+}
+.mainProfile > div {
+  width: 50%;
+}
+.mainProfile img {
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+  border-radius: 50%;
+}
+.avatarBlock {
+  display: flex;
+}
+.buttonsBlock {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+.picture img {
+  width: 100%;
+}
+
+.profileItem {
+  margin: 10px 0;
+  background: white;
+  border-radius: 3px;
+  padding: 10px;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+
+.profileItemHalf {
+  display: flex;
+  padding: 5px 0;
+}
+.profileItemHalf > div {
+  width: 45%;
+  word-wrap: break-word;
+}
+.boldValue {
+  font-weight: bold;
+}

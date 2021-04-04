@@ -1,0 +1,13 @@
+.myInput {
+  border: none;
+  border-bottom: gray solid 3px;
+  background-color: transparent;
+  margin: 10px 20px;
+  padding: 3px;
+}
+
+.myInput:focus, .myInput:hover {
+  outline: none;
+  transform: scale(1.02);
+  transition-duration: 0.2s;
+}

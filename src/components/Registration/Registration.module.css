@@ -1,0 +1,39 @@
+.mainLoginForm {
+  margin: 50px auto;
+  background: white;
+  width: 40vw;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+}
+.inputsFlex {
+  display: flex;
+  flex-direction: column;
+}
+.regInput {
+  border: none;
+  border-bottom: 2px solid gray;
+  background: transparent;
+  margin: 10px 0;
+}
+.regInput:focus {
+  outline: none;
+}
+.regInput:hover {
+  transform: scale(1.01);
+  transition-duration: 0.3s;
+}
+.regBtn {
+  margin: 10px 0;
+  border: none;
+  background: darkslategray;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+  align-self: flex-end;
+}
+.regBtn:hover {
+  background: gray;
+}

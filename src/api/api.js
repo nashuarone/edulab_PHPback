@@ -2,10 +2,11 @@ import axios from 'axios'
 import { setLearner } from '../redux/profileReducer'
 import { setFiles, addFile, deleteFileAC } from "../redux/fileReducer";
 import { addCourse, getAllCourses } from '../redux/coursesReducer';
+import { API_URL } from "../config";
 
 export const registrationAPI = async (email, password, myname, surname) => {
   try {
-    const response = await axios.post('http://localhost:5000/api/auth/registration', {
+    const response = await axios.post(`${API_URL}api/auth/registration`, {
       email,
       password,
       myname,
@@ -21,7 +22,7 @@ export const loginAPI = (email, password) => {
   return async dispatch => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${API_URL}api/auth/login`,
         {
           email,
           password,
@@ -40,7 +41,7 @@ export const authAPI = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/auth/auth", {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}}
+        `${API_URL}api/auth/auth`, {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}}
       );
       dispatch(setLearner(response.data.learner));
       localStorage.setItem("token", response.data.token);
@@ -57,7 +58,7 @@ export const uploadAvatarAPI = (file) => {
     try {
       const formData = new FormData()
       formData.append("file", file);
-      const response = await axios.post("http://localhost:5000/api/files/avatar", formData,
+      const response = await axios.post(`${API_URL}api/files/avatar`, formData,
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
@@ -72,7 +73,7 @@ export const deleteAvatarAPI = () => {
   return async (dispatch) => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/files/avatar",
+        `${API_URL}api/files/avatar`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -88,7 +89,7 @@ export function getFilesAPI(dirId) {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/files${dirId ? "?parent=" + dirId : ""}`,
+        `${API_URL}api/files${dirId ? "?parent=" + dirId : ""}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -105,7 +106,7 @@ export function createDirAPI(dirId, name) {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/files`,
+        `${API_URL}api/files`,
         {
           name,
           parent: dirId,
@@ -132,7 +133,7 @@ export function uploadFileAPI(file, dirId) {
         formData.append('parent', dirId)
       }
       const response = await axios.post(
-        `http://localhost:5000/api/files/upload`,
+        `${API_URL}api/files/upload`,
         formData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -163,7 +164,7 @@ export function uploadFileAPI(file, dirId) {
 
 export const downloadFileAPI = async (file) => {
   const response = await fetch(
-    `http://localhost:5000/api/files/download?id=${file._id}`,
+    `${API_URL}api/files/download?id=${file._id}`,
     {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }
@@ -184,7 +185,7 @@ export function deleteFileAPI(file) {
   return async (dispatch) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/files?id=${file._id}`,
+        `${API_URL}api/files?id=${file._id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -201,7 +202,7 @@ export function searchFileAPI(search) {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/files/search?search=${search}`,
+        `${API_URL}api/files/search?search=${search}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -217,7 +218,7 @@ export function createCourseAPI(title, videoLink, description) {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/courses`,
+        `${API_URL}api/courses`,
         {
           title,
           videoLink,
@@ -239,7 +240,7 @@ export function getAllCoursesAPI() {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/courses`,
+        `${API_URL}api/courses`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }

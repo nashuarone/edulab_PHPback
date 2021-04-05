@@ -19,7 +19,7 @@ const Header = () => {
             alt="default-logo"
           />
         </header>
-        <div className={s.header2}>Tandem</div>
+        <div className={s.header2}>eduLab</div>
         <div className={s.loginBlock}>
           {!isAuth && <NavLink to={"/registration"}>Registration</NavLink>}
           {!isAuth && <NavLink to={"/login"}>Login</NavLink>}

@@ -12,6 +12,7 @@ import Login from "./components/Registration/Login";
 import Disk from "./components/Disk/Disk"
 import { useDispatch, useSelector } from 'react-redux';
 import { authAPI } from './api/api';
+import Admin from './components/Admin/Admin';
 
 function App() {
   const isAuth = useSelector((s) => s.profilePage.isAuth);
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/news" component={News} />
                 <Route path="/courses" render={() => <CoursesContainer />} />
                 <Route path="/disk" render={() => <Disk />} />
+                <Route path="/admin" render={() => <Admin />} />
                 <Redirect to="/profile" />
               </Switch>
             )}

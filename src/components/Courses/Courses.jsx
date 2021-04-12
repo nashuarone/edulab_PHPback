@@ -6,7 +6,7 @@ import s from "./Courses.module.css";
 import { getAllCoursesAPI } from '../../api/api';
 
 const Courses = (props) => {
-  const isAdminos = useSelector((s) => s.profilePage.isAdminos);
+  const isTeacher = useSelector((s) => s.profilePage.isTeacher);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllCoursesAPI());
@@ -14,7 +14,7 @@ const Courses = (props) => {
   return (
     <div className={s.coursesPage}>
       <div>Куча курсов</div>
-      {isAdminos && (
+      {isTeacher && (
         <div className={s.editModeRed}>
           <EditCourse props={props} />
         </div>

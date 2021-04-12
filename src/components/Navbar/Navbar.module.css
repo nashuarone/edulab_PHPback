@@ -22,6 +22,19 @@
   font-weight: bold;
 }
 
+.itemA {
+  margin: 40px 0;
+}
+.itemA a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.itemA a.activeLink {
+  color: darkred;
+  font-weight: bold;
+}
+
 .friends {
   margin: 25px 0;
 }

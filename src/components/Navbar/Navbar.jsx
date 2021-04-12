@@ -1,8 +1,10 @@
 import React from 'react'
+import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import s from "./Navbar.module.css";
 
 const Navbar = () => {
+  const isAdminos = useSelector((s) => s.profilePage.isAdminos);
   return (
     <div className={s.nav}>
       <nav className={s.nav2}>
@@ -38,14 +40,16 @@ const Navbar = () => {
           <a href="s.com">Задания и оценки</a>
         </div>
         <div className={s.item}>
-          <a href="s.com">Если затык</a>
-        </div>
-        <div className={s.item}>
           <a href="s.com">Календарь</a>
         </div>
         <div className={s.item}>
           <a href="s.com">Инструменты</a>
         </div>
+        {isAdminos && (<div className={s.itemA}>
+          <NavLink to="/admin" activeClassName={s.activeLink}>
+            ADMIN
+          </NavLink>
+        </div>)}
         <div className={s.friends}>
           <h3>Students</h3>
           <div className={s.friendsblock}>

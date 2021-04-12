@@ -1,0 +1,38 @@
+.darkTheme {
+  background: linear-gradient(180deg,darkslategrey 95%, whitesmoke 100%), darkslategrey;
+  padding: 15px;
+  padding-bottom: 40px;
+}
+
+.contentMain {
+  margin: 15px 0;
+  padding: 10px 0;
+  border: 1px solid #7080904D;
+  border-radius: 4px;
+}
+.contentMain span {
+  padding: 0 10px;
+  color: white;
+  font-weight: bold;
+}
+.contentBlock {
+  display: flex;
+}
+.contentItem {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  width: 20%;
+  border: 1px solid #3838384d;
+  border-radius: 4px;
+}
+.contentItem:hover {
+  background: #c0c0c033;
+  cursor: pointer;
+}
+.contentMain i {
+  margin: 10px;
+  font-size: 40px;
+}

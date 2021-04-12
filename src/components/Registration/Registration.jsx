@@ -7,6 +7,7 @@ const Registration = () => {
   const [password, setPassword] = useState("")
   const [myname, setMyname] = useState("")
   const [surname, setSurname] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const handlleChangeE = (e) => {
     setEmail(e.target.value)
   }
@@ -18,6 +19,9 @@ const Registration = () => {
   };
   const handlleChangeS = (e) => {
     setSurname(e.target.value);
+  };
+  const handlleChangeB = (e) => {
+    setBirthdate(e.target.value);
   };
   return (
     <div className={s.mainLoginForm}>
@@ -50,6 +54,12 @@ const Registration = () => {
           onChange={handlleChangeS}
           type="text"
           placeholder="Введите фамилию"
+        />
+        <input
+          className={s.regInput}
+          value={birthdate}
+          onChange={handlleChangeB}
+          type="date"
         />
         <button
           className={s.regBtn}

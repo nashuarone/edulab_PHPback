@@ -3,6 +3,7 @@ import { setLearner } from '../redux/profileReducer'
 import { setFiles, addFile, deleteFileAC } from "../redux/fileReducer";
 import { addCourse, getAllCourses } from '../redux/coursesReducer';
 import { API_URL } from "../config";
+import { addNews, getAllNews } from '../redux/newsReducer';
 
 export const registrationAPI = async (email, password, myname, surname) => {
   try {
@@ -246,6 +247,45 @@ export function getAllCoursesAPI() {
         }
       );
       dispatch(getAllCourses(response.data));
+      console.log(response.data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  };
+}
+
+export function createNewsAPI(title, newsImg, description) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}api/news`,
+        {
+          title,
+          newsImg,
+          description,
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      dispatch(addNews(response.data));
+      console.log(response.data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  };
+}
+
+export function getAllNewsAPI() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}api/news`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      dispatch(getAllNews(response.data));
       console.log(response.data);
     } catch (e) {
       alert(e.response.data.message);

@@ -45,6 +45,10 @@ const Admin = () => {
             <span>Обучение</span>
             <div className={s.contentBlock}>
               <div className={s.contentItem}>
+                <i class="far fa-newspaper"></i>
+                <div>Новости</div>
+              </div>
+              <div className={s.contentItem}>
                 <i class="fas fa-book-reader"></i>
                 <div>Курсы</div>
               </div>

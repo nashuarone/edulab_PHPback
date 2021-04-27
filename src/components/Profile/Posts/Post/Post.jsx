@@ -10,7 +10,7 @@ const Post = (props) => {
         alt=""
       />
       {props.message}
-      <div>{props.likesCount}</div>
+      <div><i className="far fa-heart"></i> {props.likesCount}</div>
     </div>
   );
 };

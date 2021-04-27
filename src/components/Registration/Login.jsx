@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { loginAPI } from '../../api/api'
+import { useDispatch, useSelector } from 'react-redux'
+//import { loginAPI } from '../../api/api'
+import { getUserProfile } from "../../redux/profileReducer";
 import s from "./Registration.module.css"
 
 const Login = () => {
+  const isLoginFetching = useSelector((s) => s.profilePage.isLoginFetching);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const handlleChangeE = (e) => {
@@ -32,8 +34,9 @@ const Login = () => {
           placeholder="Введите пароль"
         />
         <button
+          disabled={isLoginFetching}
           className={s.regBtn}
-          onClick={() => dispatch(loginAPI(email, password))}
+          onClick={() => dispatch(getUserProfile(email, password))}
         >
           Войти
         </button>

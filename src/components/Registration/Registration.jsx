@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { registrationAPI } from '../../api/api'
+import { useDispatch, useSelector } from "react-redux";
+import { createUserProfile } from "../../redux/profileReducer";
 import s from "./Registration.module.css"
 
 const Registration = () => {
+  const dispatch = useDispatch();
+  const isLoginFetching = useSelector((s) => s.profilePage.isLoginFetching);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [myname, setMyname] = useState("")
+  const [first_name, setMyname] = useState("");
   const [surname, setSurname] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const handlleChangeE = (e) => {
@@ -43,7 +46,7 @@ const Registration = () => {
         />
         <input
           className={s.regInput}
-          value={myname}
+          value={first_name}
           onChange={handlleChangeM}
           type="text"
           placeholder="Введите имя"
@@ -62,10 +65,15 @@ const Registration = () => {
           type="date"
         />
         <button
+          disabled={isLoginFetching}
           className={s.regBtn}
-          onClick={() => registrationAPI(email, password, myname, surname)}
+          onClick={() =>
+            dispatch(
+              createUserProfile(email, password, first_name, surname, birthdate)
+            )
+          }
         >
-          Зарегестрироваться
+          Зарегистрироваться
         </button>
       </div>
     </div>

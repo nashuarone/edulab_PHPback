@@ -13,6 +13,9 @@ import Disk from "./components/Disk/Disk"
 import { useDispatch, useSelector } from 'react-redux';
 import { authAPI } from './api/api';
 import Admin from './components/Admin/Admin';
+import ProfileInfoEdit from "./components/Profile/ProfileInfo/ProfileInfoEdit/ProfileInfoEdit";
+import EditCourse from "./components/Courses/EditCourse";
+import Users from './components/Users/Users';
 
 function App() {
   const isAuth = useSelector((s) => s.profilePage.isAuth);
@@ -35,12 +38,15 @@ function App() {
               </Switch>
             ) : (
               <Switch>
-                <Route path="/profile" render={() => <Profile />} />
+                <Route path="/profile/:userId?" render={() => <Profile />} />
                 <Route path="/dialogs" render={() => <DialogsContainer />} />
                 <Route path="/news" component={News} />
                 <Route path="/courses" render={() => <CoursesContainer />} />
                 <Route path="/disk" render={() => <Disk />} />
                 <Route path="/admin" render={() => <Admin />} />
+                <Route path="/users" render={() => <Users />} />
+                <Route path="/profileditor" render={() => <ProfileInfoEdit />} />
+                <Route path="/courseditor" render={() => <EditCourse />} />
                 <Redirect to="/profile" />
               </Switch>
             )}

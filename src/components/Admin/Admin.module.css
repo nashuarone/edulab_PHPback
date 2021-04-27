@@ -28,6 +28,10 @@
   border: 1px solid #3838384d;
   border-radius: 4px;
 }
+.contentItem a {
+  text-decoration: none;
+  color: black;
+}
 .contentItem:hover {
   background: #c0c0c033;
   cursor: pointer;

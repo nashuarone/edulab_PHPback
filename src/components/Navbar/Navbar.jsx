@@ -47,7 +47,7 @@ const Navbar = () => {
         </div>
         {isAdminos && (<div className={s.itemA}>
           <NavLink to="/admin" activeClassName={s.activeLink}>
-            ADMIN
+            ADMIN &#128520;
           </NavLink>
         </div>)}
         <div className={s.friends}>

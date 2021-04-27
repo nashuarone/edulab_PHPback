@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import s from "./Admin.module.css";
 
 const Admin = () => {
@@ -11,19 +12,19 @@ const Admin = () => {
             <span>Контент</span>
             <div className={s.contentBlock}>
               <div className={s.contentItem}>
-                <i class="fas fa-photo-video"></i>
+                <i className="fas fa-photo-video"></i>
                 <div>Медиа</div>
               </div>
               <div className={s.contentItem}>
-                <i class="fas fa-align-left"></i>
+                <i className="fas fa-align-left"></i>
                 <div>Текст</div>
               </div>
               <div className={s.contentItem}>
-                <i class="fas fa-file-word"></i>
+                <i className="fas fa-file-word"></i>
                 <div>Файлы</div>
               </div>
               <div className={s.contentItem}>
-                <i class="fas fa-link"></i>
+                <i className="fas fa-link"></i>
                 <div>Ссылки</div>
               </div>
             </div>
@@ -32,11 +33,17 @@ const Admin = () => {
             <span>Пользователи</span>
             <div className={s.contentBlock}>
               <div className={s.contentItem}>
-                <i class="fas fa-graduation-cap"></i>
+                <NavLink to={"/users"}>
+                  <i className="fas fa-user-friends"></i>
+                  <div>Все пользователи</div>
+                </NavLink>
+              </div>
+              <div className={s.contentItem}>
+                <i className="fas fa-graduation-cap"></i>
                 <div>Ученики</div>
               </div>
               <div className={s.contentItem}>
-                <i class="fas fa-university"></i>
+                <i className="fas fa-university"></i>
                 <div>Преподаватели</div>
               </div>
             </div>
@@ -45,19 +52,19 @@ const Admin = () => {
             <span>Обучение</span>
             <div className={s.contentBlock}>
               <div className={s.contentItem}>
-                <i class="far fa-newspaper"></i>
+                <i className="far fa-newspaper"></i>
                 <div>Новости</div>
               </div>
               <div className={s.contentItem}>
-                <i class="fas fa-book-reader"></i>
+                <i className="fas fa-book-reader"></i>
                 <div>Курсы</div>
               </div>
               <div className={s.contentItem}>
-                <i class="fas fa-video"></i>
+                <i className="fas fa-video"></i>
                 <div>Вебинары</div>
               </div>
               <div className={s.contentItem}>
-                <i class="far fa-calendar-check"></i>
+                <i className="far fa-calendar-check"></i>
                 <div>Мероприятия</div>
               </div>
             </div>

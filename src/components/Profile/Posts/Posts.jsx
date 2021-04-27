@@ -36,6 +36,7 @@ const Posts = (props) => {
           onChange={newPostUI}
           ref={newTextElement}
           value={props.newPostText}
+          placeholder="О чём Вы хотите рассказать?.."
         ></textarea>
         <div>
           <button onClick={addPostUI}>Add post</button>

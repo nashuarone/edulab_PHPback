@@ -5,85 +5,100 @@ import { addCourse, getAllCourses } from '../redux/coursesReducer';
 import { API_URL } from "../config";
 import { addNews, getAllNews } from '../redux/newsReducer';
 
-export const registrationAPI = async (email, password, myname, surname) => {
+export const registrationAPI = async (email, password, first_name, second_name, birth_date) => {
+  //return dispatch => {
+    try {
+      debugger
+      const response = await axios.post(`${API_URL}user`, {
+        email,
+        password,
+        first_name,
+        second_name,
+        birth_date,
+      });
+      //dispatch(setLearner(response.data));
+      alert(JSON.stringify(response.data));
+      return response;
+    } catch (e) {
+      debugger
+      alert(e.response.data.error.message);
+    }
+  //}
+};
+
+export const loginAPI = async (email, password) => {
+  //return async dispatch => {
   try {
-    const response = await axios.post(`${API_URL}api/auth/registration`, {
+    debugger;
+    const response = await axios.post(`${API_URL}auth/login`, {
       email,
       password,
-      myname,
-      surname
-    })
-    alert(response.data.message)
+    });
+    //dispatch(setLearner(response.data.user))
+    localStorage.setItem("token", response.data.token);
+    const user = await axios.get(`${API_URL}user`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log(response.data);
+    console.log(user.data);
+    return user
   } catch (e) {
-    alert(e.response.data.message)
+    debugger;
+    alert(e.response.data.error.message);
   }
-}
-
-export const loginAPI = (email, password) => {
-  return async dispatch => {
-    try {
-      const response = await axios.post(
-        `${API_URL}api/auth/login`,
-        {
-          email,
-          password,
-        }
-      );
-      dispatch(setLearner(response.data.learner))
-      localStorage.setItem('token', response.data.token)
-      console.log(response.data)
-    } catch (e) {
-      alert(e.response.data.message);
-    }
-  }
+  //}
 };
 
 export const authAPI = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${API_URL}api/auth/auth`, {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}}
+        `${API_URL}user`, {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}}
       );
-      dispatch(setLearner(response.data.learner));
-      localStorage.setItem("token", response.data.token);
+      dispatch(setLearner(response.data));
+      //localStorage.setItem("token", response.data.token);
       console.log(response.data);
     } catch (e) {
-      localStorage.removeItem('token')
-      alert(e.response.data.message);
+      debugger
+      //localStorage.removeItem('token')
+      alert(e.response.data.error.message);
     }
   };
 };
 
-export const uploadAvatarAPI = (file) => {
-  return async (dispatch) => {
+export const uploadAvatarAPI = async (avatar) => {
+  //return async (dispatch) => {
     try {
-      const formData = new FormData()
-      formData.append("file", file);
-      const response = await axios.post(`${API_URL}api/files/avatar`, formData,
-      {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      dispatch(setLearner(response.data));
+      debugger
+      const response = await axios.put(`${API_URL}user`, {avatar},
+      {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      //dispatch(setLearner(response.data));
+      alert(JSON.stringify(response.data));
+      return response
     } catch (e) {
       console.log(e)
+      alert(e.response.data.error.message);
     }
-  };
+  //};
 };
 
-export const deleteAvatarAPI = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.delete(
-        `${API_URL}api/files/avatar`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-      dispatch(setLearner(response.data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
+export const deleteAvatarAPI = async (avatar) => {
+  try {
+    debugger
+    const response = await axios.put(
+      `${API_URL}user`,
+      { avatar },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //dispatch(setLearner(response.data));
+    alert(JSON.stringify(response.data));
+    return response;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
 };
 
 export function getFilesAPI(dirId) {
@@ -215,15 +230,18 @@ export function searchFileAPI(search) {
   };
 }
 
-export function createCourseAPI(title, videoLink, description) {
+export function createCourseAPI(title, img, description, format, duration, value) {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `${API_URL}api/courses`,
+        `${API_URL}course`,
         {
           title,
-          videoLink,
+          img,
           description,
+          format,
+          duration,
+          value,
         },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -241,11 +259,12 @@ export function getAllCoursesAPI() {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${API_URL}api/courses`,
+        `${API_URL}courses`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
+      debugger
       dispatch(getAllCourses(response.data));
       console.log(response.data);
     } catch (e) {
@@ -292,3 +311,78 @@ export function getAllNewsAPI() {
     }
   };
 }
+
+export const getAllUsersAPI = async () => {
+  //return async (dispatch) => {
+    try {
+      const response = await axios.get(`${API_URL}users`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      //dispatch(getAllNews(response.data));
+      console.log(response.data);
+      return response.data
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  //};
+}
+
+export const getAnotherUserAPI = async (userId) => {
+  //return async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}user/${userId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    //dispatch(getAllNews(response.data));
+    console.log(response.data);
+    return response;
+  } catch (e) {
+    alert(e.response.data.message);
+  }
+  //};
+};
+
+export const updateUserDataAPI = async (
+  email,
+  first_name,
+  second_name,
+  birth_date,
+  third_name,
+  gender,
+  city,
+  tel
+) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}user`,
+      {
+        email,
+        first_name,
+        second_name,
+        birth_date,
+        third_name,
+        gender,
+        city,
+        tel,
+      },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    alert(JSON.stringify(response.data));
+    return response;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const deleteUserAPI = async (userId) => {
+  try {
+    const response = await axios.delete(`${API_URL}user/${userId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log(response.data);
+    return userId;
+  } catch (e) {
+    alert(e.response.data.message);
+  }
+};

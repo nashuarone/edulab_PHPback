@@ -2,13 +2,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import { logout } from '../../redux/profileReducer';
-import { API_URL } from "../../config";
+//import { API_URL } from "../../config";
 import s from "./Header.module.css";
 
 const Header = () => {
   const isAuth = useSelector(s => s.profilePage.isAuth)
   const currentLearner = useSelector((s) => s.profilePage.profileData);
-  const avatarLogo = `${API_URL + currentLearner.avatar}`;
+  const avatarLogo = currentLearner.avatar
   const dispatch = useDispatch()
   return (
     <div className={s.header}>
@@ -31,7 +31,7 @@ const Header = () => {
           {isAuth && (
             <div className={s.avatarLogo}>
               <NavLink to={"/profile"}>
-                {currentLearner.avatar ? <img src={avatarLogo} alt="" /> : <i class="fas fa-user-graduate"></i>}
+                {currentLearner.avatar ? <img src={avatarLogo} alt="" /> : <i className="fas fa-user-graduate"></i>}
               </NavLink>
             </div>
           )}

@@ -1,41 +1,79 @@
+import {
+  registrationAPI,
+  loginAPI,
+  uploadAvatarAPI,
+  deleteAvatarAPI,
+  getAnotherUserAPI,
+  updateUserDataAPI,
+} from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_PROFILE_NAME = "ADD_PROFILE_NAME";
 const UPDATE_PROFILE_NAME = "UPDATE_PROFILE_NAME";
 const SET_LEARNER = "SET_LEARNER";
+const SET_OTHER_LEARNER = "SET_OTHER_LEARNER";
 const LOGOUT = "LOGOUT";
+const TOGGLE_IS_LOGIN_BUTTON = "TOGGLE_IS_LOGIN_BUTTON";
 
 let initialState = {
   profileData: {
-    userId: 1,
-    myname: "Teacher",
-    surname: "Russo",
-    gender: "Male",
-    BirthDate: "11.11.1922",
-    email: "example@mail.com",
-    password: "open",
-    city: "Ufa",
-    company: "",
-    eduPlace: "",
-    workPosition: "",
-    eduSpecialty: "",
-    avatar: "",
-    education: "",
-    telOrLogin: "",
-    description: '',
-    competences: "",
-    interests: [],
+    avatar: null,
+    birth_date: "",
+    city: null,
+    email: "",
+    first_name: "",
+    gender: null,
+    id: 2,
+    role: 0,
+    second_name: "",
+    tel: null,
+    telegram: null,
+    third_name: null,
+    // userId: 1,
+    // myname: "Teacher",
+    // surname: "Russo",
+    // gender: "Male",
+    // BirthDate: "11.11.1922",
+    // email: "example@mail.com",
+    // password: "open",
+    // city: "Ufa",
+    // company: "",
+    // eduPlace: "",
+    // workPosition: "",
+    // eduSpecialty: "",
+    // avatar: "",
+    // education: "",
+    // telOrLogin: "",
+    // description: '',
+    // competences: "",
+    // interests: [],
+  },
+  otherProfileData: {
+    avatar: null,
+    birth_date: "",
+    city: null,
+    email: "",
+    first_name: "",
+    gender: null,
+    id: 2,
+    role: 0,
+    second_name: "",
+    tel: null,
+    telegram: null,
+    third_name: null,
   },
   postsData: [
     { id: 1, message: "first post!", likesCount: 12 },
     { id: 2, message: "Give me more likes", likesCount: 23 },
     { id: 3, message: "Durofff verni stenu!!!", likesCount: 1 },
   ],
-  newPostText: "Pupiiiiiiii",
+  newPostText: "Рыба для поста",
   newNameText: "",
   isAuth: false,
   isAdminos: false,
   isTeacher: false,
+  isLoginFetching: false,
 };
 
 const profileReducer = (state_p = initialState, action) => {
@@ -75,20 +113,50 @@ const profileReducer = (state_p = initialState, action) => {
       };
     }
     case SET_LEARNER: {
+      if (action.payload.role === 2) {
+        return {
+          ...state_p,
+          profileData: action.payload,
+          isAuth: true,
+          isAdminos: true,
+          isTeacher: true,
+        };
+      }
+      if (action.payload.role === 1) {
+        return {
+          ...state_p,
+          profileData: action.payload,
+          isAuth: true,
+          isTeacher: true,
+        };
+      }
       return {
         ...state_p,
         profileData: action.payload,
         isAuth: true,
       };
     }
+    case SET_OTHER_LEARNER: {
+      return {
+        ...state_p,
+        otherProfileData: action.payload,
+      };
+    }
     case LOGOUT: {
-      localStorage.removeItem('token')
+      localStorage.removeItem("token");
       return {
         ...state_p,
         profileData: {},
         isAuth: false,
+        isAdminos: false,
+        isTeacher: false,
       };
     }
+    case TOGGLE_IS_LOGIN_BUTTON:
+      return {
+        ...state_p,
+        isLoginFetching: action.fetchingStatus,
+      };
     default:
       return state_p;
   }
@@ -108,8 +176,69 @@ export const setLearner = (learner) => ({
   type: SET_LEARNER,
   payload: learner,
 });
+export const setOtherLearner = (user) => ({
+  type: SET_OTHER_LEARNER,
+  payload: user,
+});
 export const logout = () => ({
   type: LOGOUT,
 });
+export const toggleIsLoginButton = (fetchingStatus) => ({
+  type: TOGGLE_IS_LOGIN_BUTTON,
+  fetchingStatus,
+});
+
+export const createUserProfile = (email, password, first_name, second_name, birth_date) => (dispatch) => {
+  dispatch(toggleIsLoginButton(true));
+  registrationAPI(email, password, first_name, second_name, birth_date).then((res) => {
+    dispatch(toggleIsLoginButton(false));
+    dispatch(setLearner(res.data));
+  });
+};
+export const getUserProfile = (email, password) => (dispatch) => {
+  dispatch(toggleIsLoginButton(true));
+  loginAPI(email, password).then((res) => {
+    dispatch(toggleIsLoginButton(false));
+    dispatch(setLearner(res.data));
+  });
+};
+export const getAnotherUserProfile = (userId) => (dispatch) => {
+  getAnotherUserAPI(userId).then((res) => {
+    dispatch(setOtherLearner(res.data));
+  });
+};
+export const putUserAvatar = (avatar) => (dispatch) => {
+  uploadAvatarAPI(avatar).then((res) => {
+    dispatch(setLearner(res.data));
+  });
+};
+export const deleteUserAvatar = (avatar) => (dispatch) => {
+  deleteAvatarAPI(avatar).then((res) => {
+    dispatch(setLearner(res.data));
+  });
+};
+export const putUserProfile = (
+  email,
+  first_name,
+  second_name,
+  birth_date,
+  third_name,
+  gender,
+  city,
+  tel
+) => (dispatch) => {
+  updateUserDataAPI(
+    email,
+    first_name,
+    second_name,
+    birth_date,
+    third_name,
+    gender,
+    city,
+    tel
+  ).then((res) => {
+    dispatch(setLearner(res.data));
+  });
+};
 
 export default profileReducer;

@@ -37,3 +37,6 @@
 .regBtn:hover {
   background: gray;
 }
+.regBtn:disabled {
+  background: lightblue;
+}

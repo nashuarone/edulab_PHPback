@@ -1,3 +1,14 @@
+.leftPad {
+  padding-left: 20px;
+}
+.profileTitle {
+  display: flex;
+}
+.profileTitle a {
+  text-decoration: none;
+  color: black;
+  margin-left: 10px;
+}
 .mainProfile {
   display: flex;
 }
@@ -34,6 +45,11 @@
 
 .profileItemHalf {
   display: flex;
+  padding: 5px 0;
+}
+.profileItemHalfButton {
+  display: flex;
+  justify-content: flex-end;
   padding: 5px 0;
 }
 .profileItemHalf > div {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from "react-router-dom";
 import ReactPlayer from 'react-player'
-import EditCourse from './EditCourse'
 import s from "./Courses.module.css";
 import { getAllCoursesAPI } from '../../api/api';
 
@@ -13,18 +13,20 @@ const Courses = (props) => {
   }, [dispatch]);
   return (
     <div className={s.coursesPage}>
-      <div>Куча курсов</div>
-      {isTeacher && (
-        <div className={s.editModeRed}>
-          <EditCourse props={props} />
-        </div>
-      )}
+      <div className={s.editBlockTitle}>Курсы</div>
+      <div className={s.editBlock}>
+        {isTeacher && (
+          <div className={s.editModeRed}>
+            <NavLink to={"/courseditor"}>Перейти в редактор курсов</NavLink>
+          </div>
+        )}
+      </div>
       <div>
         {props.coursesData.map((c) => (
           <div className={s.courseItem} key={c.id}>
             <div className={s.coursePicture}>
-              {c.courseImg ? (
-                <img alt="pic" src={c.courseImg} />
+              {c.img ? (
+                <img alt="pic" src={c.img} />
               ) : (
                 <ReactPlayer
                   url={c.videoLink}

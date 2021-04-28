@@ -1,15 +1,21 @@
 .coursesPage {
   margin: 10px;
 }
+.coursesPage a {
+  text-decoration: none;
+  color: black;
+}
 .courseItem {
   margin: 20px;
   padding: 10px;
-  display: flex;
   border-radius: 3px;
   background: white;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+.courseItemFlex {
+  display: flex;
 }
 .coursePicture {
   width: 36%;
@@ -44,6 +50,16 @@
   font-size: 24px;
   font-weight: bold;
 }
+.editBlockSubtitle {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
 .editBlock {
   margin: 20px;
+}
+.courseBtn {
+  width: 100%;
+  height: 3rem;
+  font-size: 16px;
 }

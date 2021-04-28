@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { setLearner } from '../redux/profileReducer'
 import { setFiles, addFile, deleteFileAC } from "../redux/fileReducer";
-import { addCourse, getAllCourses } from '../redux/coursesReducer';
+import { addCourse, getAllCourses, getMyCourses } from '../redux/coursesReducer';
 import { API_URL } from "../config";
 import { addNews, getAllNews } from '../redux/newsReducer';
 
@@ -264,7 +264,6 @@ export function getAllCoursesAPI() {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      debugger
       dispatch(getAllCourses(response.data));
       console.log(response.data);
     } catch (e) {
@@ -312,20 +311,23 @@ export function getAllNewsAPI() {
   };
 }
 
-export const getAllUsersAPI = async () => {
+export const getAllUsersAPI = async (pageNum = 1, pageSize = 10) => {
   //return async (dispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}users`, {
+  try {
+    const response = await axios.get(
+      `${API_URL}users?offset=${pageNum}&count=${pageSize}`,
+      {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      //dispatch(getAllNews(response.data));
-      console.log(response.data);
-      return response.data
-    } catch (e) {
-      alert(e.response.data.message);
-    }
+      }
+    );
+    //dispatch(getAllNews(response.data));
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    alert(e.response.data.message);
+  }
   //};
-}
+};
 
 export const getAnotherUserAPI = async (userId) => {
   //return async (dispatch) => {
@@ -384,5 +386,66 @@ export const deleteUserAPI = async (userId) => {
     return userId;
   } catch (e) {
     alert(e.response.data.message);
+  }
+};
+
+export const putUserRoleAPI = async (userId, role) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}user/${userId}`,
+      { role },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export function getMyCoursesAPI(userId) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${API_URL}user/${userId}/courses`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      dispatch(getMyCourses(response.data));
+      console.log(response.data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  };
+}
+
+export const addUserCourseAPI = async (courseId, userId) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}user/${userId}/course/${courseId}`,
+      {},
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const deleteUserCourseAPI = async (courseId, userId) => {
+  try {
+    const response = await axios.delete(
+      `${API_URL}user/${userId}/course/${courseId}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
   }
 };

@@ -28,15 +28,30 @@ const ProfileInfo = (props) => {
 
   const otherLearner = useSelector((s) => s.profilePage.otherProfileData);
 
-  let second_name = otherLearner.second_name ? otherLearner.second_name : currentLearner.second_name;
-  let first_name = otherLearner.first_name ? otherLearner.first_name : props.profileData.first_name;
-  let third_name = otherLearner.third_name ? otherLearner.third_name : currentLearner.third_name;
-  let email = otherLearner.email ? otherLearner.email : props.profileData.email;
-  let birth_date = otherLearner.birth_date ? otherLearner.birth_date : props.profileData.birth_date;
-  let gender = otherLearner.gender ? otherLearner.gender : currentLearner.gender;
-  let city = otherLearner.city ? otherLearner.city : currentLearner.city;
-  let tel = otherLearner.tel ? otherLearner.tel : currentLearner.tel;
-  let role = otherLearner.role === 0 ? otherLearner.role : props.profileData.role;
+  let second_name = currentLearner.second_name;
+  let first_name = props.profileData.first_name;
+  let third_name = currentLearner.third_name;
+  let email = props.profileData.email;
+  let birth_date = props.profileData.birth_date;
+  let gender = currentLearner.gender;
+  let city = currentLearner.city;
+  let tel = currentLearner.tel;
+  let role = props.profileData.role;
+  let avatarLogo = currentLearner.avatar;
+
+  if (otherLearner) {
+    second_name = otherLearner.second_name ? otherLearner.second_name : "";
+    first_name = otherLearner.first_name ? otherLearner.first_name : "";
+    third_name = otherLearner.third_name ? otherLearner.third_name : ""
+    email = otherLearner.email ? otherLearner.email : "";
+    birth_date = otherLearner.birth_date ? otherLearner.birth_date : ""
+    gender = otherLearner.gender ? otherLearner.gender : ""
+    city = otherLearner.city ? otherLearner.city : ""
+    tel = otherLearner.tel ? otherLearner.tel : ""
+    role = otherLearner.role === 0 ? otherLearner.role : ""
+    avatarLogo = otherLearner.avatar ? otherLearner.avatar : ""
+  }
+
   let roleLvl = "Пользователь"
   if (role === 2) {
     roleLvl = "Админ"
@@ -51,7 +66,6 @@ const ProfileInfo = (props) => {
   if (gender === 1) {
     genderText = "Мужской";
   }
-  let avatarLogo = otherLearner.avatar ? otherLearner.avatar : currentLearner.avatar;
 
   return (
     <div>

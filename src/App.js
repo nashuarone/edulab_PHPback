@@ -15,6 +15,7 @@ import { authAPI } from './api/api';
 import Admin from './components/Admin/Admin';
 import ProfileInfoEdit from "./components/Profile/ProfileInfo/ProfileInfoEdit/ProfileInfoEdit";
 import EditCourse from "./components/Courses/EditCourse";
+import Mycourses from "./components/Courses/Mycourses";
 import Users from './components/Users/Users';
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/dialogs" render={() => <DialogsContainer />} />
                 <Route path="/news" component={News} />
                 <Route path="/courses" render={() => <CoursesContainer />} />
+                <Route path="/mycourses" render={() => <Mycourses />} />
                 <Route path="/disk" render={() => <Disk />} />
                 <Route path="/admin" render={() => <Admin />} />
                 <Route path="/users" render={() => <Users />} />

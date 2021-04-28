@@ -1,30 +1,23 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from "react-router-dom";
 import ReactPlayer from 'react-player'
 import s from "./Courses.module.css";
-import { addUserCourse } from "../../redux/coursesReducer";
-import { getAllCoursesAPI } from '../../api/api';
+import { deleteUserCourse } from "../../redux/coursesReducer";
+import { getMyCoursesAPI } from '../../api/api';
 
-const Courses = (props) => {
-  const isTeacher = useSelector((s) => s.profilePage.isTeacher);
+const Mycourses = (props) => {
+  //const isTeacher = useSelector((s) => s.profilePage.isTeacher);
   const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
+  const myCoursesData = useSelector((s) => s.coursesPage.myCoursesData);
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getAllCoursesAPI());
-  }, [dispatch]);
+    dispatch(getMyCoursesAPI(currentLearnerId));
+  }, [dispatch, currentLearnerId]);
   return (
     <div className={s.coursesPage}>
-      <div className={s.editBlockTitle}>Курсы</div>
-      <div className={s.editBlock}>
-        {isTeacher && (
-          <div className={s.editModeRed}>
-            <NavLink to={"/courseditor"}>Перейти в редактор курсов</NavLink>
-          </div>
-        )}
-      </div>
+      <div className={s.editBlockTitle}>Мои курсы</div>
       <div>
-        {props.coursesData.map((c) => (
+        {myCoursesData.map((c) => (
           <div className={s.courseItem} key={c.id}>
             <div className={s.courseItemFlex}>
               <div className={s.coursePicture}>
@@ -50,9 +43,9 @@ const Courses = (props) => {
             <div>
               <button
                 className={s.courseBtn}
-                onClick={() => dispatch(addUserCourse(c.id, currentLearnerId))}
+                onClick={() => dispatch(deleteUserCourse(c.id, currentLearnerId))}
               >
-                Записаться на курс
+                Отписаться от курса
               </button>
             </div>
           </div>
@@ -62,4 +55,4 @@ const Courses = (props) => {
   );
 };
 
-export default Courses;
+export default Mycourses;

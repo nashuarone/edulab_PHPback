@@ -1,6 +1,7 @@
-import { getAllUsersAPI, deleteUserAPI } from "../api/api";
+import { getAllUsersAPI, deleteUserAPI, putUserRoleAPI } from "../api/api";
 
 const SET_USERS = "SET_USERS";
+const SET_ROLE = "SET_ROLE";
 const SET_FILTERED_USERS = "SET_FILTERED_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
@@ -26,7 +27,16 @@ const userReducer = (state_u = initialState, action) => {
       return {
         ...state_u,
         users: state_u.users.filter((it) => it.id !== action.userId),
-        //users: [...state_u.users, ...action.users],
+      };
+    case SET_ROLE:
+      return {
+        ...state_u,
+        users: state_u.users.map((u) => {
+          if (u.id === action.userId) {
+            return { ...u, role: action.role };
+          }
+          return u;
+        }),
       };
     case SET_CURRENT_PAGE:
       return {
@@ -50,6 +60,7 @@ const userReducer = (state_u = initialState, action) => {
 
 export const setUsers = (users) => ({ type: SET_USERS, users });
 export const setFilteredUsers = (userId) => ({ type: SET_FILTERED_USERS, userId });
+export const setUserRole = (userId, role) => ({ type: SET_ROLE, userId, role });
 export const setCurrentPage = (pageNumber) => ({
   type: SET_CURRENT_PAGE,
   pageNumber,
@@ -80,6 +91,16 @@ export const deleteUserProfile = (userId) => {
     deleteUserAPI(userId).then((uId) => {
       dispatch(toggleIsFetching(false));
       dispatch(setFilteredUsers(uId));
+    });
+  };
+};
+export const putUserRole = (userId, role) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    putUserRoleAPI(userId, role).then((res) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setUserRole(res.data.id, res.data.role));
+      console.log(res.data)
     });
   };
 };

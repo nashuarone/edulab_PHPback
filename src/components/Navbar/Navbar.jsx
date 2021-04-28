@@ -5,22 +5,28 @@ import s from "./Navbar.module.css";
 
 const Navbar = () => {
   const isAdminos = useSelector((s) => s.profilePage.isAdminos);
+  const totalCount = useSelector((s) => s.usersPage.totalCount);
   return (
     <div className={s.nav}>
       <nav className={s.nav2}>
         <div className={s.item}>
           <NavLink to="/profile" activeClassName={s.activeLink}>
-            Profile
-          </NavLink>
-        </div>
-        <div className={s.item}>
-          <NavLink to="/dialogs" activeClassName={s.activeLink}>
-            Messages
+            Профиль
           </NavLink>
         </div>
         <div className={s.item}>
           <NavLink to="/courses" activeClassName={s.activeLink}>
             Курсы
+          </NavLink>
+        </div>
+        <div className={s.item}>
+          <NavLink to="/mycourses" activeClassName={s.activeLink}>
+            Мои курсы
+          </NavLink>
+        </div>
+        <div className={s.item}>
+          <NavLink to="/dialogs" activeClassName={s.activeLink}>
+            Сообщения
           </NavLink>
         </div>
         <div className={s.item}>
@@ -45,13 +51,15 @@ const Navbar = () => {
         <div className={s.item}>
           <a href="s.com">Инструменты</a>
         </div>
-        {isAdminos && (<div className={s.itemA}>
-          <NavLink to="/admin" activeClassName={s.activeLink}>
-            ADMIN &#128520;
-          </NavLink>
-        </div>)}
-        <div className={s.friends}>
-          <h3>Students</h3>
+        {isAdminos && (
+          <div className={s.itemA}>
+            <NavLink to="/admin" activeClassName={s.activeLink}>
+              ADMIN &#128520;
+            </NavLink>
+          </div>
+        )}
+        {isAdminos && <div className={s.friends}>
+          <h3>Всего пользователей в системе - {totalCount + 1}</h3>
           <div className={s.friendsblock}>
             <div>
               <img
@@ -68,7 +76,7 @@ const Navbar = () => {
               <p>Keks</p>
             </div>
           </div>
-        </div>
+        </div>}
       </nav>
     </div>
   );

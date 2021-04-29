@@ -54,7 +54,7 @@ let initialState = {
   ],
   myCoursesData: [
     {
-      id: 0,
+      id: 10,
       creator_id: 0,
       title: "JavaScript. Уровень 100",
       description:
@@ -115,7 +115,14 @@ const coursesReducer = (state_c = initialState, action) => {
     case GET_MY_COURSES: {
       return {
         ...state_c,
-        myCoursesData: [...action.mycourses],
+        myCoursesData: [
+          ...action.myCoursesIdArr.map(
+            (rewriteItem) =>
+              state_c.coursesData.filter(
+                (myCourses) => myCourses.id === rewriteItem.course_id
+              )[0]
+          ),
+        ],
       };
     }
     case SET_USER_COURSE: {
@@ -141,7 +148,7 @@ const coursesReducer = (state_c = initialState, action) => {
 
 export const addCourse = (course) => ({ type: ADD_COURSE, course });
 export const getAllCourses = (courses) => ({ type: GET_COURSES, courses });
-export const getMyCourses = (mycourses) => ({ type: GET_MY_COURSES, mycourses });
+export const getMyCourses = (myCoursesIdArr) => ({ type: GET_MY_COURSES, myCoursesIdArr });
 export const setUserCourse = (courseId) => ({
   type: SET_USER_COURSE,
   courseId,

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactPlayer from 'react-player'
 import s from "./Courses.module.css";
 import { deleteUserCourse } from "../../redux/coursesReducer";
-import { getMyCoursesAPI } from '../../api/api';
+import { getAllCoursesAPI, getMyCoursesAPI } from '../../api/api';
 
 const Mycourses = (props) => {
   //const isTeacher = useSelector((s) => s.profilePage.isTeacher);
@@ -11,13 +11,16 @@ const Mycourses = (props) => {
   const myCoursesData = useSelector((s) => s.coursesPage.myCoursesData);
   const dispatch = useDispatch()
   useEffect(() => {
+    dispatch(getAllCoursesAPI());
+  }, [dispatch]);
+  useEffect(() => {
     dispatch(getMyCoursesAPI(currentLearnerId));
-  }, [dispatch, currentLearnerId]);
+  }, [dispatch, currentLearnerId, myCoursesData]);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Мои курсы</div>
       <div>
-        {myCoursesData.map((c) => (
+        {myCoursesData.length > 0 ? myCoursesData.map((c) => (
           <div className={s.courseItem} key={c.id}>
             <div className={s.courseItemFlex}>
               <div className={s.coursePicture}>
@@ -49,7 +52,7 @@ const Mycourses = (props) => {
               </button>
             </div>
           </div>
-        ))}
+        )) : "Ничего нет =("}
       </div>
     </div>
   );

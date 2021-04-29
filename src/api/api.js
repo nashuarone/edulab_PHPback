@@ -414,7 +414,10 @@ export function getMyCoursesAPI(userId) {
       dispatch(getMyCourses(response.data));
       console.log(response.data);
     } catch (e) {
-      alert(e.response.data.message);
+      if (e.response.data.error.message === "Not found.") {
+        return dispatch(getMyCourses([]));
+      }
+        alert(e.response.data.error.message);
     }
   };
 }
@@ -426,7 +429,7 @@ export const addUserCourseAPI = async (courseId, userId) => {
       {},
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
-    alert(JSON.stringify(response.data, null, 2));
+    //alert(JSON.stringify(response.data, null, 2));
     console.log(JSON.stringify(response, null, 2));
     return response.data;
   } catch (e) {
@@ -441,7 +444,7 @@ export const deleteUserCourseAPI = async (courseId, userId) => {
       `${API_URL}user/${userId}/course/${courseId}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
-    alert(JSON.stringify(response.data, null, 2));
+    //alert(JSON.stringify(response.data, null, 2));
     console.log(JSON.stringify(response, null, 2));
     return response.data;
   } catch (e) {

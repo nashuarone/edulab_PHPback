@@ -1,9 +1,17 @@
-import { addUserCourseAPI, deleteUserCourseAPI } from "../api/api";
+import {
+  addUserCourseAPI,
+  deleteUserCourseAPI,
+  addCourseChapterAPI,
+  getAllChaptersAPI,
+  getMyCoursesAPI,
+} from "../api/api";
 
 const ADD_COURSE = "ADD_COURSE";
 const GET_COURSES = "GET_COURSES";
 const GET_MY_COURSES = "GET_MY_COURSES";
 const SET_USER_COURSE = "SET_USER_COURSE";
+const SET_COURSE_CHAPTER = "SET_COURSE_CHAPTER";
+const SET_ALL_CHAPTERS = "SET_ALL_CHAPTERS";
 const UNSET_USER_COURSE = "UNSET_USER_COURSE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 //const UPDATE_COURSE = "UPDATE_COURSE";
@@ -52,28 +60,7 @@ let initialState = {
     //   eduFiles: [],
     // },
   ],
-  myCoursesData: [
-    {
-      id: 10,
-      creator_id: 0,
-      title: "JavaScript. Уровень 100",
-      description:
-        "Данный курс предназначен для тех, кто уже знаком с принципами HTML-вёрстки и созданием статичных страниц. Практические знания и навыки, приобретённые на этом уровне, дают возможность работать и создавать динамические веб-страницы и приложения. Курс систематизирует знания студентов, которые уже сталкивались с JavaScript, но не имеют богатого опыта работы с языком Студенты знакомятся с основами создания интерактивных веб-страниц с помощью языка JavaScript. Полученные на уроках знания закрепляются через практическую часть - реализация игр на языке JavaScript. Перед началом обучения рекомендуется пройти курсы «Основы программирования» и HTML/CSS",
-      img:
-        "https://st2.depositphotos.com/1350793/8441/i/600/depositphotos_84415820-stock-photo-hand-drawing-online-courses-concept.jpg",
-      format: 1,
-      duration: 0,
-      rating: 1,
-      checked: true,
-      value: 0,
-      themes: [
-        {
-          id: 0,
-          title: "string",
-        },
-      ],
-    },
-  ],
+  myCoursesData: [],
   currentCourseData: {
     id: 0,
     creator_id: 0,
@@ -94,8 +81,10 @@ let initialState = {
       },
     ],
   },
+  courseChaptersData: [],
   newPostText: "Pupiiiiiiii",
   newNameText: "",
+  isFetching: false,
 };
 
 const coursesReducer = (state_c = initialState, action) => {
@@ -141,6 +130,25 @@ const coursesReducer = (state_c = initialState, action) => {
         ],
       };
     }
+    case SET_COURSE_CHAPTER: {
+      return {
+        ...state_c,
+        courseChaptersData: [...state_c.courseChaptersData, action.chapter],
+      };
+    }
+    case SET_ALL_CHAPTERS: {
+      return {
+        ...state_c,
+        courseChaptersData: [
+          ...action.chapters
+        ],
+      };
+    }
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state_c,
+        isFetching: action.fetchingStatus,
+      };
     default:
       return state_c;
   }
@@ -148,7 +156,7 @@ const coursesReducer = (state_c = initialState, action) => {
 
 export const addCourse = (course) => ({ type: ADD_COURSE, course });
 export const getAllCourses = (courses) => ({ type: GET_COURSES, courses });
-export const getMyCourses = (myCoursesIdArr) => ({ type: GET_MY_COURSES, myCoursesIdArr });
+export const setMyCourses = (myCoursesIdArr) => ({ type: GET_MY_COURSES, myCoursesIdArr });
 export const setUserCourse = (courseId) => ({
   type: SET_USER_COURSE,
   courseId,
@@ -160,6 +168,14 @@ export const unsetUserCourse = (courseId) => ({
 export const toggleIsFetching = (fetchingStatus) => ({
   type: TOGGLE_IS_FETCHING,
   fetchingStatus,
+});
+export const setCourseChapter = (chapter) => ({
+  type: SET_COURSE_CHAPTER,
+  chapter,
+});
+export const setAllChapters = (chapters) => ({
+  type: SET_ALL_CHAPTERS,
+  chapters,
 });
 
 export const addUserCourse = (courseId, userId) => {
@@ -181,6 +197,36 @@ export const deleteUserCourse = (courseId, userId) => {
       dispatch(toggleIsFetching(false));
       dispatch(unsetUserCourse(data.course_id));
       console.log(data);
+    });
+  };
+};
+export const getMyCourse = (userId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getMyCoursesAPI(userId).then((myCoursesIdArr) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setMyCourses(myCoursesIdArr));
+      console.log(myCoursesIdArr);
+    });
+  };
+};
+export const addCourseChapter = (courseId, title, content) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    addCourseChapterAPI(courseId, title, content).then((chapter) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setCourseChapter(chapter));
+      console.log(chapter);
+    });
+  };
+};
+export const getAllChapters = (courseId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getAllChaptersAPI(courseId).then((chapters) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setAllChapters(chapters));
+      console.log(chapters);
     });
   };
 };

@@ -48,6 +48,15 @@ const Courses = (props) => {
               </div>
             </div>
             <div>
+              <NavLink to={"/course/" + c.id}>
+                <button
+                  className={s.courseBtn}
+                >
+                  Просмотреть контент курса
+                </button>
+              </NavLink>
+            </div>
+            <div>
               <button
                 className={s.courseBtn}
                 onClick={() => dispatch(addUserCourse(c.id, currentLearnerId))}

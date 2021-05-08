@@ -255,6 +255,49 @@ export function createCourseAPI(title, img, description, format, duration, value
   };
 }
 
+export const getCurrentCourseAPI = async (courseId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}course/${courseId}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const updateCourseAPI = async (
+  courseId,
+  title,
+  img,
+  description,
+  format,
+  duration,
+  value,
+) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}course/${courseId}`,
+      { title, img, description, format, duration, value },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
 export function getAllCoursesAPI() {
   return async (dispatch) => {
     try {
@@ -396,7 +439,7 @@ export const putUserRoleAPI = async (userId, role) => {
       { role },
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
-    alert(JSON.stringify(response.data, null, 2));
+    // alert(JSON.stringify(response.data, null, 2));
     console.log(JSON.stringify(response, null, 2));
     return response;
   } catch (e) {
@@ -463,7 +506,6 @@ export const addCourseChapterAPI = async (courseId, title, content) => {
     );
     //alert(JSON.stringify(response.data, null, 2));
     console.log(JSON.stringify(response, null, 2));
-    debugger
     return response.data;
   } catch (e) {
     console.log(e);
@@ -476,6 +518,97 @@ export const getAllChaptersAPI = async (courseId) => {
     const response = await axios.get(
       `${API_URL}course/${courseId}/chapters`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    if (e.response.data.error.message === "Chapters not found") {
+      return [];
+    }
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getChapterAPI = async (courseId, chapterId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}course/${courseId}/chapter/${chapterId}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const addChapterTestAPI = async (
+  courseId,
+  chapterId,
+  question,
+  answer1,
+  answer2,
+  answer3,
+  answer4,
+  correct_answer,
+  score
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}course/${courseId}/chapter/${chapterId}/test`,
+      {
+        question,
+        answer1,
+        answer2,
+        answer3,
+        answer4,
+        correct_answer,
+        score,
+      },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getAllChapterTestsAPI = async (courseId, chapterId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}course/${courseId}/chapter/${chapterId}/tests`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2))
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const addTestAnswerAPI = async (testId, answerNum) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}user/test/${testId}/${answerNum}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
     );
     //alert(JSON.stringify(response.data, null, 2));
     console.log(JSON.stringify(response, null, 2));

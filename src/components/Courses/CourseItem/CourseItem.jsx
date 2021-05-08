@@ -6,8 +6,9 @@ import ReactPlayer from "react-player";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import s from "../Courses.module.css";
-import { addUserCourse, getAllChapters } from "../../../redux/coursesReducer";
+import { addUserCourse, getAllChapters, getCurrentCourse } from "../../../redux/coursesReducer";
 import EditCourseItem from "./EditCourseItem";
+import EditCourseItemSkin from "./EditCourseItemSkin";
 //import { getAllCoursesAPI } from "../../api/api";
 
 const CourseItem = (props) => {
@@ -17,9 +18,12 @@ const CourseItem = (props) => {
   const courseChaptersData = useSelector((s) => s.coursesPage.courseChaptersData);
 
   let courseId = props.match.params.courseId;
-  const coursesData = useSelector((s) => s.coursesPage.coursesData).filter(it => it.id === +courseId);
+  const currentCourseData = useSelector((s) => s.coursesPage.currentCourseData)
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCurrentCourse(courseId));
+  }, [dispatch, courseId, currentCourseData.title]);
   useEffect(() => {
     dispatch(getAllChapters(courseId));
   }, [dispatch, courseId]);
@@ -41,62 +45,72 @@ const CourseItem = (props) => {
       <div className={s.editBlock}>
         {isTeacher && (
           <div className={s.editModePurple}>
-            <EditCourseItem courseId={courseId} />
+            <EditCourseItemSkin />
           </div>
         )}
       </div>
       <div>
-        {coursesData.map((c) => (
-          <div className={s.courseItem} key={c.id}>
-            <div className={s.courseItemFlex}>
-              <div className={s.coursePicture}>
-                {c.img ? (
-                  <img alt="pic" src={c.img} />
-                ) : (
-                  <ReactPlayer
-                    url={c.videoLink}
-                    className={s.reactPlayer}
-                    width="100%"
-                    height="100%"
-                  />
-                )}
-                <div>Формат: {c.format === 1 ? "Онлайн" : "Офлайн"}</div>
-                <div>Продолжительность: {c.duration} часов</div>
-                <div>Ценность: {c.value} баллов</div>
+        <div className={s.courseItem}>
+          <div className={s.courseItemFlex}>
+            <div className={s.coursePicture}>
+              {currentCourseData.img ? (
+                <img alt="pic" src={currentCourseData.img} />
+              ) : (
+                <ReactPlayer
+                  url={currentCourseData.videoLink}
+                  className={s.reactPlayer}
+                  width="100%"
+                  height="100%"
+                />
+              )}
+              <div>
+                Формат: {currentCourseData.format === 1 ? "Онлайн" : "Офлайн"}
               </div>
-              <div className={s.descriptionItem}>
-                <span className={s.tittleDecor}>{c.title}</span>
-                <div className={s.courseDescription}>{c.description}</div>
+              <div>Продолжительность: {currentCourseData.duration} часов</div>
+              <div>Ценность: {currentCourseData.value} баллов</div>
+            </div>
+            <div className={s.descriptionItem}>
+              <span className={s.tittleDecor}>{currentCourseData.title}</span>
+              <div className={s.courseDescription}>
+                {currentCourseData.description}
               </div>
-            </div>
-            <div>
-              {courseChaptersData.length > 0
-                ? courseChaptersData.map((chap) => (
-                    <div key={chap.id}>
-                      <div className={s.boldItemTitle}>{chap.title}</div>
-                      <div>
-                        {/* <div>{chap.content}</div> */}
-                        {/* <div className='editor' dangerouslySetInnerHTML={{__html: chap.content}}></div> */}
-                        <CKEditor
-                          editor={ClassicEditor}
-                          data={chap.content}
-                          disabled={true}
-                        />
-                      </div>
-                    </div>
-                  ))
-                : "Курс не содержит материалов"}
-            </div>
-            <div>
-              <button
-                className={s.courseBtn}
-                onClick={() => dispatch(addUserCourse(c.id, currentLearnerId))}
-              >
-                Записаться на курс
-              </button>
             </div>
           </div>
-        ))}
+          <div>
+            {courseChaptersData.length > 0
+              ? courseChaptersData.map((chap) => (
+                  <div key={chap.id}>
+                    <div className={s.boldItemTitle}>{chap.title}</div>
+                    <div>
+                      <NavLink to={"/course/" + courseId + "/chapter/" + chap.id}>
+                        <button className={s.courseBtn}>
+                          Просмотреть содержание главы
+                        </button>
+                      </NavLink>
+                    </div>
+                    <div>
+                      {/* <div className='editor' dangerouslySetInnerHTML={{__html: chap.content}}></div> */}
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={chap.content}
+                        disabled={true}
+                      />
+                    </div>
+                  </div>
+                ))
+              : "Курс не содержит материалов"}
+          </div>
+          <div>
+            <button
+              className={s.courseBtn}
+              onClick={() =>
+                dispatch(addUserCourse(currentCourseData.id, currentLearnerId))
+              }
+            >
+              Записаться на курс
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

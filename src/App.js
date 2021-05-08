@@ -4,6 +4,7 @@ import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
+import Footer from "./components/Footer/Footer";
 import News from "./components/News/News";
 import CoursesContainer from "./components/Courses/CoursesContainer";
 import Profile from './components/Profile/Profile';
@@ -17,6 +18,7 @@ import ProfileInfoEdit from "./components/Profile/ProfileInfo/ProfileInfoEdit/Pr
 import EditCourse from "./components/Courses/EditCourse";
 import Mycourses from "./components/Courses/Mycourses";
 import CourseItem from "./components/Courses/CourseItem/CourseItem";
+import ChapterItem from "./components/Courses/CourseItem/ChapterItem";
 import Users from './components/Users/Users';
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
                 <Route path="/dialogs" render={() => <DialogsContainer />} />
                 <Route path="/news" component={News} />
                 <Route path="/courses" render={() => <CoursesContainer />} />
+                <Route path="/course/:courseId/chapter/:chapterId?" render={() => <ChapterItem />} />
                 <Route path="/course/:courseId?" render={() => <CourseItem />} />
                 <Route path="/mycourses" render={() => <Mycourses />} />
                 <Route path="/disk" render={() => <Disk />} />
@@ -55,6 +58,7 @@ function App() {
               </Switch>
             )}
           </div>
+          <Footer />
         </div>
       </div>
     </BrowserRouter>

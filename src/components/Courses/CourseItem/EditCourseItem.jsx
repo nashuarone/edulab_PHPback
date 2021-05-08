@@ -26,7 +26,7 @@ const EditCourseItem = (props) => {
                 value={title}
                 onChange={handlleChangeT}
                 type="text"
-                placeholder="Введите заголовок"
+                placeholder="Введите название главы"
               />
             </div>
             <div>

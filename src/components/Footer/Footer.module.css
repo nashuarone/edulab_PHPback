@@ -1,0 +1,74 @@
+.header {
+  grid-area: f;
+  background: orange;
+  background: linear-gradient(60deg,#ffa600 0%, #fbff00 90%);
+  background: -webkit-linear-gradient(60deg,#1e3590 0%, #3b6ef5 25%, #1dc9df 50%, #4cdc6f 90%);
+  background: -moz-linear-gradient(60deg,#1e3590 0%, #3b6ef5 25%, #1dc9df 50%, #4cdc6f 90%);
+  display: flex;
+  align-items: center;
+}
+
+.header1 {
+  margin: 0 2vw;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header2 {
+  line-height: 60px;
+  padding-left: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.header img {
+  width: 60px;
+}
+
+.loginBlock {
+  display: flex;
+  line-height: 60px;
+  margin: 0 0 0 auto;
+  color: tomato;
+  font-weight: bold;
+}
+.avatarLogo {
+  position: relative;
+  width: 70px;
+}
+.avatarLogo img, .avatarLogo i {
+  font-size: 25px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+.avatarLogo:hover {
+  background: rgba(255, 255, 255, 0.2)
+}
+.loginBlock a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+.closeDiv {
+    padding: 0 10px;
+    cursor: pointer;
+}
+.closeDiv:hover {
+  background: rgba(255, 255, 255, 0.2)
+}
+.footer {
+  margin: 0 auto;
+  color: white;
+  font-weight: bold;
+}

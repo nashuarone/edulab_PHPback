@@ -30,7 +30,7 @@ const Posts = (props) => {
 
   return (
     <div>
-      <h3>My posts</h3>
+      <h3>Стена</h3>
       <div className={s.posts}>
         <textarea
           onChange={newPostUI}
@@ -39,7 +39,7 @@ const Posts = (props) => {
           placeholder="О чём Вы хотите рассказать?.."
         ></textarea>
         <div>
-          <button onClick={addPostUI}>Add post</button>
+          <button onClick={addPostUI}>Добавить пост</button>
         </div>
       </div>
       <div className={s.postBlock}>{postElements}</div>

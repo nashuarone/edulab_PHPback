@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/userPhoto.png";
+import Preloader from "../Common/Preloader";
 import { getUsers, deleteUserProfile, putUserRole } from "../../redux/usersReducer";
 
 const Users = (props) => {
@@ -41,6 +42,7 @@ const Users = (props) => {
           );
         })}
       </div>
+      {isFetching ? <Preloader /> : null}
       {users.map((u) => (
         <div className={s.userItem} key={u.id}>
           <div>
@@ -53,11 +55,11 @@ const Users = (props) => {
               </NavLink>
             </div>
           </div>
-          <div>
+          <div className={s.userInfoBlock}>
             <div>{u.first_name}</div>
             <div>{u.second_name}</div>
             <div>{u.email}</div>
-            <div>
+            <div className={s.userole}>
               {u.role === 0
                 ? "Пользователь"
                 : u.role === 1
@@ -65,26 +67,38 @@ const Users = (props) => {
                 : "Admin"}
             </div>
             <div>
-              {u.role === 0 ? (
+              {u.role === 2 ? (
                 <button
                   disabled={isFetching}
-                  onClick={() => dispatch(putUserRole(u.id, 1))}
+                  onClick={() => dispatch(putUserRole(u.id, 0))}
                 >
-                  <i className="fas fa-book-open"></i> Назначить преподавателем
+                  <i className="fas fa-pray"></i> Разжаловать до пользователя
                 </button>
               ) : (
-                <button
-                  disabled={isFetching}
-                  onClick={() => dispatch(putUserRole(u.id, 2))}
-                >
-                  <i className="fas fa-jedi"></i> Посвятить в Админы
-                </button>
+                <div>
+                  {u.role === 0 ? (
+                    <button
+                      disabled={isFetching}
+                      onClick={() => dispatch(putUserRole(u.id, 1))}
+                    >
+                      <i className="fas fa-book-open"></i> Назначить
+                      преподавателем
+                    </button>
+                  ) : (
+                    <button
+                      disabled={isFetching}
+                      onClick={() => dispatch(putUserRole(u.id, 2))}
+                    >
+                      <i className="fas fa-jedi"></i> Посвятить в Админы
+                    </button>
+                  )}
+                </div>
               )}
             </div>
             <div>
               <button
                 disabled={isFetching}
-                className={s.regBtn}
+                className={s.redBtn}
                 onClick={() => dispatch(deleteUserProfile(u.id))}
               >
                 Удалить

@@ -85,7 +85,7 @@ const EditCourse = (props) => {
               value={value}
               onChange={handlleChangeV}
               type="number"
-              placeholder="ценность"
+              placeholder="Ценность"
             />
             <button
               onClick={() =>

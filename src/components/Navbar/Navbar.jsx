@@ -58,25 +58,32 @@ const Navbar = () => {
             </NavLink>
           </div>
         )}
-        {isAdminos && <div className={s.friends}>
-          <h3>Всего пользователей в системе - {totalCount + 1}</h3>
-          <div className={s.friendsblock}>
-            <div>
-              <img
-                src="https://media.gettyimages.com/vectors/human-face-avatar-icon-profile-for-social-network-man-vector-vector-id1227618765"
-                alt=""
-              />
-              <p>Pups</p>
-            </div>
-            <div>
-              <img
-                src="https://media.gettyimages.com/vectors/human-face-avatar-icon-profile-for-social-network-man-vector-vector-id1227618765"
-                alt=""
-              />
-              <p>Keks</p>
+        {isAdminos && (
+          <div className={s.friends}>
+            <h3>
+              Всего пользователей в системе -{" "}
+              {totalCount > 0
+                ? totalCount + 1
+                : "...для обновления данных посетите страницу с пользователями..."}
+            </h3>
+            <div className={s.friendsblock}>
+              <div>
+                <img
+                  src="https://media.gettyimages.com/vectors/human-face-avatar-icon-profile-for-social-network-man-vector-vector-id1227618765"
+                  alt=""
+                />
+                <p>Препод</p>
+              </div>
+              <div>
+                <img
+                  src="https://media.gettyimages.com/vectors/human-face-avatar-icon-profile-for-social-network-man-vector-vector-id1227618765"
+                  alt=""
+                />
+                <p>Юзер с длинным ником</p>
+              </div>
             </div>
           </div>
-        </div>}
+        )}
       </nav>
     </div>
   );

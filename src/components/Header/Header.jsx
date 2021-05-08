@@ -21,8 +21,8 @@ const Header = () => {
         </header>
         <div className={s.header2}>eduLab</div>
         <div className={s.loginBlock}>
-          {!isAuth && <NavLink to={"/registration"}>Registration</NavLink>}
-          {!isAuth && <NavLink to={"/login"}>Login</NavLink>}
+          {!isAuth && <NavLink to={"/registration"}>Регистрация</NavLink>}
+          {!isAuth && <NavLink to={"/login"}>Вход</NavLink>}
           {isAuth && (
             <div className={s.closeDiv} onClick={() => dispatch(logout())}>
               Выход

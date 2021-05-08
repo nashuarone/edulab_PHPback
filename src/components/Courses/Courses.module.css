@@ -20,7 +20,7 @@
 .coursePicture {
   width: 36%;
 }
-.coursePicture > img {
+.coursePicture img {
   width: 100%;
 }
 .reactPlayer {
@@ -29,6 +29,7 @@
 }
 .tittleDecor {
   font-weight: bold;
+  font-size: 20px;
 }
 .descriptionItem {
   padding: 20px;
@@ -49,12 +50,17 @@
 .regInput {
   margin: 0 5px 5px auto;
 }
+.regInputTest {
+  margin: 0 5px 5px auto;
+  width: 100%;
+}
 .editBlockTitle {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
 }
 .editBlockSubtitle {
+  margin: 20px 0;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
@@ -66,8 +72,11 @@
   width: 100%;
   height: 3rem;
   font-size: 16px;
-  margin-top: 20px;
+  margin: 10px 0;
 }
 .boldItemTitle {
+  margin: 20px 0;
   font-weight: bold;
+  font-size: 18px;
+  text-align: center;
 }

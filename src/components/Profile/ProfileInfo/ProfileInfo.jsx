@@ -72,9 +72,14 @@ const ProfileInfo = (props) => {
       <div className={s.profileTitle}>
         <h3>
           Профиль{" "}
-          {(userId === currentLearner.id) && <NavLink to={"/profileditor"}>
-            <i title="Редактировать профиль" className="fas fa-pencil-alt"></i>
-          </NavLink>}
+          {userId === currentLearner.id && (
+            <NavLink to={"/profileditor"}>
+              <i
+                title="Редактировать профиль"
+                className="fas fa-pencil-alt"
+              ></i>
+            </NavLink>
+          )}
         </h3>
       </div>
       <div className={s.mainProfile}>
@@ -91,12 +96,14 @@ const ProfileInfo = (props) => {
               <div className={s.postBlock}>{second_name}</div>
             </div>
           </div>
-          {third_name && <div className={s.profileItem}>
-            <div className={s.profileItemHalf}>
-              <div className={s.boldValue}>Отчество</div>
-              <div className={s.postBlock}>{third_name}</div>
+          {third_name && (
+            <div className={s.profileItem}>
+              <div className={s.profileItemHalf}>
+                <div className={s.boldValue}>Отчество</div>
+                <div className={s.postBlock}>{third_name}</div>
+              </div>
             </div>
-          </div>}
+          )}
           <div className={s.profileItem}>
             <div className={s.profileItemHalf}>
               <div className={s.boldValue}>e-mail</div>
@@ -117,63 +124,51 @@ const ProfileInfo = (props) => {
               <div className={s.postBlock}>{roleLvl}</div>
             </div>
           </div>
-          {gender && <div className={s.profileItem}>
-            <div className={s.profileItemHalf}>
-              <div className={s.boldValue}>Пол</div>
-              <div className={s.postBlock}>{genderText}</div>
+          {gender && (
+            <div className={s.profileItem}>
+              <div className={s.profileItemHalf}>
+                <div className={s.boldValue}>Пол</div>
+                <div className={s.postBlock}>{genderText}</div>
+              </div>
             </div>
-          </div>}
-          {city && <div className={s.profileItem}>
-            <div className={s.profileItemHalf}>
-              <div className={s.boldValue}>Город</div>
-              <div className={s.postBlock}>{city}</div>
+          )}
+          {city && (
+            <div className={s.profileItem}>
+              <div className={s.profileItemHalf}>
+                <div className={s.boldValue}>Город</div>
+                <div className={s.postBlock}>{city}</div>
+              </div>
             </div>
-          </div>}
-          {tel && <div className={s.profileItem}>
-            <div className={s.profileItemHalf}>
-              <div className={s.boldValue}>Телефон</div>
-              <div className={s.postBlock}>{tel}</div>
+          )}
+          {tel && (
+            <div className={s.profileItem}>
+              <div className={s.profileItemHalf}>
+                <div className={s.boldValue}>Телефон</div>
+                <div className={s.postBlock}>{tel}</div>
+              </div>
             </div>
-          </div>}
+          )}
         </div>
         <div>
           <div className={s.avatarBlock}>
             <img src={avatarLogo} alt="" />
           </div>
-          <div className={s.buttonsBlock}>
-            <button onClick={() => dispatch(deleteUserAvatar(null))}>
-              Удалить аватар
-            </button>
-            {/* <div className={s.disk__upload}>
-              <label
-                htmlFor="disk__uploadInput"
-                className={s.disk__uploadLabel}
-              >
-                Загрузить аватар
-              </label>
+          {userId === currentLearner.id && (
+            <div className={s.buttonsBlock}>
+              <button onClick={() => dispatch(deleteUserAvatar(null))}>
+                Удалить аватар
+              </button>
               <input
-                type="file"
-                id="disk__uploadInput"
-                className={s.disk__uploadInput}
-                multiple={true}
-                onChange={(e) => avatarUpHandler(e)}
+                onChange={handlleChangeA}
+                value={avatar}
+                type="text"
+                placeholder="Загрузить аватар"
               />
-            </div> */}
-            <input
-              onChange={handlleChangeA}
-              value={avatar}
-              type="text"
-              placeholder="Загрузить аватар"
-            />
-            <button onClick={() => dispatch(putUserAvatar(avatar))}>Ok</button>
-            {/* <input
-              className={s.regInput}
-              value={first_name}
-              onChange={handlleChangeM}
-              type="text"
-              placeholder="Введите имя"
-            /> */}
-          </div>
+              <button onClick={() => dispatch(putUserAvatar(avatar))}>
+                Ok
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

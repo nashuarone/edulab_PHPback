@@ -11,3 +11,17 @@
 .regBtn {
   margin-top: 15px;
 }
+.userInfoBlock {
+  margin: 0 20px;
+}
+.userole {
+  font-weight: bold;
+}
+.redBtn {
+  margin-top: 15px;
+  font-weight: bold;
+}
+.redBtn:hover {
+  color: red;
+  font-weight: bold;
+}

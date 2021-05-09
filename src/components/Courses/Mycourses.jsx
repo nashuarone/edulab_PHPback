@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from "react-router-dom";
 import ReactPlayer from 'react-player'
 import s from "./Courses.module.css";
+import Preloader from "../Common/Preloader";
 import { deleteUserCourse, getMyCourse } from "../../redux/coursesReducer";
 import { getAllCoursesAPI } from '../../api/api';
 
@@ -9,6 +11,7 @@ const Mycourses = (props) => {
   //const isTeacher = useSelector((s) => s.profilePage.isTeacher);
   const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
   const myCoursesData = useSelector((s) => s.coursesPage.myCoursesData);
+  const isFetching = useSelector((s) => s.coursesPage.isFetching);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllCoursesAPI());
@@ -19,6 +22,7 @@ const Mycourses = (props) => {
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Мои курсы</div>
+      {isFetching ? <Preloader /> : null}
       <div>
         {myCoursesData.length > 0 ? (
           myCoursesData.map((c) => (
@@ -43,6 +47,11 @@ const Mycourses = (props) => {
                   <span className={s.tittleDecor}>{c.title}</span>
                   <div className={s.courseDescription}>{c.description}</div>
                 </div>
+              </div>
+              <div>
+                <NavLink to={"/course/" + c.id}>
+                  <button className={s.courseBtn}>Перейти к курсу</button>
+                </NavLink>
               </div>
               <div>
                 <button

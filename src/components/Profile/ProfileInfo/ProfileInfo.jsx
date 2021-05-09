@@ -36,7 +36,7 @@ const ProfileInfo = (props) => {
   let gender = currentLearner.gender;
   let city = currentLearner.city;
   let tel = currentLearner.tel;
-  let role = props.profileData.role;
+  let role = currentLearner.role;
   let avatarLogo = currentLearner.avatar;
 
   if (otherLearner) {
@@ -48,15 +48,15 @@ const ProfileInfo = (props) => {
     gender = otherLearner.gender ? otherLearner.gender : ""
     city = otherLearner.city ? otherLearner.city : ""
     tel = otherLearner.tel ? otherLearner.tel : ""
-    role = otherLearner.role === 0 ? otherLearner.role : ""
+    role = otherLearner.role ? otherLearner.role : ""
     avatarLogo = otherLearner.avatar ? otherLearner.avatar : ""
   }
 
   let roleLvl = "Пользователь"
-  if (role === 2) {
+  if (+role === 2) {
     roleLvl = "Админ"
   }
-  if (role === 1) {
+  if (+role === 1) {
     roleLvl = "Преподаватель"
   }
   let genderText = "Не выбрано";
@@ -66,7 +66,7 @@ const ProfileInfo = (props) => {
   if (gender === 1) {
     genderText = "Мужской";
   }
-
+debugger
   return (
     <div>
       <div className={s.profileTitle}>

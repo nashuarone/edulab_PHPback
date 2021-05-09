@@ -604,7 +604,7 @@ export const getAllChapterTestsAPI = async (courseId, chapterId) => {
 export const addTestAnswerAPI = async (testId, answerNum) => {
   try {
     const response = await axios.post(
-      `${API_URL}user/test/${testId}/${answerNum}`,
+      `${API_URL}user/test/${testId}/answer/${answerNum}`,
       {},
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

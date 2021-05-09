@@ -19,7 +19,9 @@ const Courses = (props) => {
       <div className={s.editBlock}>
         {isTeacher && (
           <div className={s.editModeRed}>
-            <NavLink to={"/courseditor"}>Перейти в редактор курсов</NavLink>
+            <NavLink to={"/courseditor"}>
+              <div className={s.editBlockTitle}>Перейти в редактор курсов</div>
+            </NavLink>
           </div>
         )}
       </div>
@@ -49,9 +51,7 @@ const Courses = (props) => {
             </div>
             <div>
               <NavLink to={"/course/" + c.id}>
-                <button
-                  className={s.courseBtn}
-                >
+                <button className={s.courseBtn}>
                   Просмотреть контент курса
                 </button>
               </NavLink>

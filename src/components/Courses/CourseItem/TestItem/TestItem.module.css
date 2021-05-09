@@ -1,0 +1,22 @@
+.testBlock {
+  margin: 20px;
+}
+.testQuestion {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.testBtn {
+  margin: 20px 0;
+}
+.greenAnswer {
+  font-style: italic;
+  color: green;
+}
+.redAnswer {
+  font-style: italic;
+  color: red;
+}
+.needAnswer {
+  font-style: italic;
+  color: gray;
+}

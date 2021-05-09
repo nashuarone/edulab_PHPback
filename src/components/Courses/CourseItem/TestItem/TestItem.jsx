@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllChapterTests, addTestAnswer } from "../../../../redux/coursesReducer";
+import s from "./TestItem.module.css";
 
 const TestItem = (props) => {
   const [answerNum, setAnswerNum] = useState(0);
@@ -14,14 +15,14 @@ const TestItem = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllChapterTests(courseId, chapterId));
-  }, [dispatch, courseId, chapterId]);
+  }, [dispatch, courseId, chapterId, answersData.length]);
   return (
-    <div>
+    <div className={s.testBlock}>
       {testsData.length > 0
         ? testsData.map((test) => (
             <div key={test.id}>
               <div>
-                <div>{test.question}</div>
+                <div className={s.testQuestion}>{test.question}</div>
                 <div>
                   <label>
                     <input
@@ -61,25 +62,28 @@ const TestItem = (props) => {
                   </label>
                 </div>
                 <button
+                className={s.testBtn}
                   onClick={() => dispatch(addTestAnswer(test.id, answerNum))}
                 >
                   Отправить ответ
                 </button>
               </div>
               <div>
-                {answersData.filter((it) => it.test_id === test.id) > 0
-                  ? answersData
-                      .filter((it) => it.test_id === test.id)
-                      .map((answerItem) => (
-                        <div key={answerItem.test_id}>
-                          {answerItem.correct === true ? (
-                            <span>Правильно</span>
-                          ) : (
-                            <span>Ответ неверный</span>
-                          )}
-                        </div>
-                      ))
-                  : "Тест не пройден"}
+                {answersData.filter((it) => it.test_id === test.id) > 0 ? (
+                  answersData
+                    .filter((it) => it.test_id === test.id)
+                    .map((answerItem) => (
+                      <div key={answerItem.id}>
+                        {answerItem.correct === true ? (
+                          <span className={s.greenAnswer}>Правильно</span>
+                        ) : (
+                          <span className={s.redAnswer}>Ответ неверный</span>
+                        )}
+                      </div>
+                    ))
+                ) : (
+                  <span className={s.needAnswer}>Тест не пройден</span>
+                )}
               </div>
             </div>
           ))

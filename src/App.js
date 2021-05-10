@@ -20,12 +20,15 @@ import Mycourses from "./components/Courses/Mycourses";
 import CourseItem from "./components/Courses/CourseItem/CourseItem";
 import ChapterItem from "./components/Courses/CourseItem/ChapterItem";
 import Users from './components/Users/Users';
+import CourseCertificate from './components/Courses/CourseCertificate';
 
 function App() {
   const isAuth = useSelector((s) => s.profilePage.isAuth);
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(authAPI());
+    if(localStorage.getItem("token")) {
+      dispatch(authAPI());
+    }
   }, [dispatch]);
   return (
     <BrowserRouter>
@@ -41,21 +44,24 @@ function App() {
                 <Redirect to="/login" />
               </Switch>
             ) : (
-              <Switch>
-                <Route path="/profile/:userId?" render={() => <Profile />} />
-                <Route path="/dialogs" render={() => <DialogsContainer />} />
-                <Route path="/news" component={News} />
-                <Route path="/courses" render={() => <CoursesContainer />} />
-                <Route path="/course/:courseId/chapter/:chapterId?" render={() => <ChapterItem />} />
-                <Route path="/course/:courseId?" render={() => <CourseItem />} />
-                <Route path="/mycourses" render={() => <Mycourses />} />
-                <Route path="/disk" render={() => <Disk />} />
-                <Route path="/admin" render={() => <Admin />} />
-                <Route path="/users" render={() => <Users />} />
-                <Route path="/profileditor" render={() => <ProfileInfoEdit />} />
-                <Route path="/courseditor" render={() => <EditCourse />} />
-                <Redirect to="/profile" />
-              </Switch>
+              <>
+                <Switch>
+                  <Route path="/profile/:userId?" render={() => <Profile />} />
+                  <Route path="/dialogs" render={() => <DialogsContainer />} />
+                  <Route path="/news" component={News} />
+                  <Route path="/courses" render={() => <CoursesContainer />} />
+                  <Route path="/course/:courseId/chapter/:chapterId?" render={() => <ChapterItem />} />
+                  <Route path="/course/:courseId?" render={() => <CourseItem />} />
+                  <Route path="/mycourses" render={() => <Mycourses />} />
+                  <Route path="/mycourse/certificate/:courseId?" render={() => <CourseCertificate />} />
+                  <Route path="/disk" render={() => <Disk />} />
+                  <Route path="/admin" render={() => <Admin />} />
+                  <Route path="/users" render={() => <Users />} />
+                  <Route path="/profileditor" render={() => <ProfileInfoEdit />} />
+                  <Route path="/courseditor" render={() => <EditCourse />} />
+                  <Redirect to="/profile" />
+                </Switch>
+              </>
             )}
           </div>
           <Footer />

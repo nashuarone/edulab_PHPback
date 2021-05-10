@@ -15,7 +15,7 @@ const TestItem = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllChapterTests(courseId, chapterId));
-  }, [dispatch, courseId, chapterId, answersData.length]);
+  }, [dispatch, courseId, chapterId, testsData.length, answersData.length]);
   return (
     <div className={s.testBlock}>
       {testsData.length > 0

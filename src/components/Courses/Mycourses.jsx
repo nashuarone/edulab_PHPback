@@ -54,6 +54,11 @@ const Mycourses = (props) => {
                 </NavLink>
               </div>
               <div>
+                <NavLink to={"/mycourse/certificate/" + c.id}>
+                  <button className={s.courseBtn}>Сертификат об окончании курса</button>
+                </NavLink>
+              </div>
+              <div>
                 <button
                   className={s.courseBtn}
                   onClick={() =>

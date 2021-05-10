@@ -80,3 +80,20 @@
   font-size: 18px;
   text-align: center;
 }
+.certifImg {
+  margin: auto;
+  width: 210mm;
+  height: 148mm;
+  background: url(https://st.depositphotos.com/1257959/1429/v/950/depositphotos_14295555-stock-illustration-certificate-background.jpg);
+  background-size: cover;
+}
+.certifInto {
+  padding: 100px 180px;
+  text-align: center;
+}
+.certifTitle {
+  font-family: Garamond;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}

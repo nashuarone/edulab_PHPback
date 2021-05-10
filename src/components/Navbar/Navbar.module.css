@@ -1,5 +1,5 @@
 .nav {
-  grid-area: n;
+  grid-area: navbar;
   background-color: lightgrey;
   padding-left: 2vw;
 }

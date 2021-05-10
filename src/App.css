@@ -2,10 +2,11 @@
   display: grid;
   /* width: 100vw; */
   margin: 0 auto;
+  background-color: whitesmoke;
 
   grid-template-areas:
   "h h"
-  "n c"
+  "navbar c"
   "f f";
 
   grid-template-rows: 60px 1fr 60px;

@@ -10,7 +10,7 @@ const Users = (props) => {
   const [page, setPage] = useState(1)
   const usersPage = useSelector((s) => s.usersPage);
   const isFetching = useSelector((s) => s.usersPage.isFetching);
-  let pageNumber = Math.ceil(usersPage.totalCount / usersPage.pageSize);
+  let pageNumber = Math.ceil(usersPage.totalCount / usersPage.pageSize) + 1;
   let pages = [];
   for (let i = 1; i <= pageNumber; i++) {
     pages.push(i);

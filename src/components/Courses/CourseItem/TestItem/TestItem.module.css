@@ -20,3 +20,7 @@
   font-style: italic;
   color: gray;
 }
+
+.formControl {
+  color: red;
+}

@@ -40,3 +40,7 @@
 .regBtn:disabled {
   background: lightblue;
 }
+
+.formControl {
+  color: red;
+}

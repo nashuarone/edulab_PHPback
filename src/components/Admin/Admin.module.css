@@ -2,10 +2,11 @@
   background: linear-gradient(180deg,darkslategrey 95%, whitesmoke 100%), darkslategrey;
   padding: 15px;
   padding-bottom: 40px;
+  min-height: 600px;
 }
 
 .contentMain {
-  margin: 15px 0;
+  margin: 25px 0;
   padding: 10px 0;
   border: 1px solid #7080904D;
   border-radius: 4px;
@@ -19,12 +20,12 @@
   display: flex;
 }
 .contentItem {
-  margin: 10px;
-  padding: 10px;
+  margin: 20px;
+  padding: 20px;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
-  width: 20%;
+  width: 25%;
   border: 1px solid #3838384d;
   border-radius: 4px;
 }

@@ -69,7 +69,7 @@ const TestItem = (props) => {
                 </button>
               </div>
               <div>
-                {answersData.filter((it) => it.test_id === test.id) > 0 ? (
+                {answersData.length > 0 ? (
                   answersData
                     .filter((it) => it.test_id === test.id)
                     .map((answerItem) => (

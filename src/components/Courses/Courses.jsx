@@ -40,7 +40,7 @@ const Courses = (props) => {
                     height="100%"
                   />
                 )}
-                <div>Формат: {c.format === 1 ? "Онлайн" : "Офлайн"}</div>
+                <div>Формат: {c.format === 1 ? "Онлайн" : "Вебинар"}</div>
                 <div>Продолжительность: {c.duration} часов</div>
                 <div>Ценность: {c.value} баллов</div>
               </div>
@@ -49,13 +49,15 @@ const Courses = (props) => {
                 <div className={s.courseDescription}>{c.description}</div>
               </div>
             </div>
-            <div>
-              <NavLink to={"/course/" + c.id}>
-                <button className={s.courseBtn}>
-                  Просмотреть контент курса
-                </button>
-              </NavLink>
-            </div>
+            {isTeacher && (
+              <div>
+                <NavLink to={"/course/" + c.id}>
+                  <button className={s.courseBtn}>
+                    Добавить главы и контент курса
+                  </button>
+                </NavLink>
+              </div>
+            )}
             <div>
               <button
                 className={s.courseBtn}

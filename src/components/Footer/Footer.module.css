@@ -1,7 +1,7 @@
 .header {
   grid-area: f;
   background: orange;
-  background: linear-gradient(60deg,#ffa600 0%, #fbff00 90%);
+  background: linear-gradient(60deg,#1e3590 0%, #3b6ef5 25%, #1dc9df 50%, #4cdc6f 90%);
   background: -webkit-linear-gradient(60deg,#1e3590 0%, #3b6ef5 25%, #1dc9df 50%, #4cdc6f 90%);
   background: -moz-linear-gradient(60deg,#1e3590 0%, #3b6ef5 25%, #1dc9df 50%, #4cdc6f 90%);
   display: flex;

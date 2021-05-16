@@ -4,9 +4,10 @@ import { compose } from "redux";
 import { withRouter, NavLink } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
 import { getChapter } from "../../../redux/coursesReducer";
 import s from "../Courses.module.css";
-import EditTestItem from "./TestItem/EditTestItem"
+import { EditTestItemForm } from "./TestItem/EditTestItemForm";
 import TestItem from "./TestItem/TestItem";
 
 const ChapterItem = (props) => {
@@ -33,7 +34,7 @@ const ChapterItem = (props) => {
       <div className={s.editBlock}>
         {isTeacher && (
           <div className={s.editModeRed}>
-            <EditTestItem courseId={courseId} chapterId={chapterId} />
+            <EditTestItemForm courseId={courseId} chapterId={chapterId} />
           </div>
         )}
       </div>

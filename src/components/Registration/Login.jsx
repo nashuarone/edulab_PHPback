@@ -29,6 +29,7 @@ const Login = () => {
         <input
           className={s.regInput}
           value={password}
+          
           onChange={handlleChangeP}
           type="password"
           placeholder="Введите пароль"

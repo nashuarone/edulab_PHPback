@@ -4,12 +4,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { addCourseChapter } from "../../../redux/coursesReducer";
 import s from "../Courses.module.css";
+import "./ckeditorblock.css";
 
 const EditCourseItem = (props) => {
   const courseId = props.courseId;
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("<p>Hello from CKEditor 5!</p>");
+  const [content, setContent] = useState("<p>Добавьте текст, таблицы, видео и ссылки для главы курса</p>");
   const handlleChangeT = (e) => {
     setTitle(e.target.value);
   };
@@ -18,7 +19,7 @@ const EditCourseItem = (props) => {
       <div className={s.editBlockTitle}>Редактор глав курса</div>
       <div>
         <div className={s.editBlock}>
-          <div>Добавить содержимое для новой главы</div>
+          <div>Название новой главы</div>
           <div className={s.newCourseBlock}>
             <div>
               <input
@@ -30,7 +31,7 @@ const EditCourseItem = (props) => {
               />
             </div>
             <div>
-              <h3>Вы используете CKEditor 5 редактор для React приложений</h3>
+              <h3>Добавить содержимое для новой главы</h3>
               <CKEditor
                 editor={ClassicEditor}
                 data={content}
@@ -53,13 +54,7 @@ const EditCourseItem = (props) => {
             </div>
             <button
               onClick={() =>
-                dispatch(
-                  addCourseChapter(
-                    courseId,
-                    title,
-                    content,
-                  )
-                )
+                dispatch(addCourseChapter(courseId, title, content))
               }
             >
               Сохранить главу

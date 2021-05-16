@@ -8,7 +8,6 @@ import { addNews, getAllNews } from '../redux/newsReducer';
 export const registrationAPI = async (email, password, first_name, second_name, birth_date) => {
   //return dispatch => {
     try {
-      debugger
       const response = await axios.post(`${API_URL}user`, {
         email,
         password,
@@ -17,10 +16,10 @@ export const registrationAPI = async (email, password, first_name, second_name, 
         birth_date,
       });
       //dispatch(setLearner(response.data));
-      alert(JSON.stringify(response.data));
+      //alert(JSON.stringify(response.data));
+      alert("Вы зарегистрированы, войдите в личный кабинет")
       return response;
     } catch (e) {
-      debugger
       alert(e.response.data.error.message);
     }
   //}
@@ -73,7 +72,7 @@ export const uploadAvatarAPI = async (avatar) => {
       const response = await axios.put(`${API_URL}user`, {avatar},
       {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}});
       //dispatch(setLearner(response.data));
-      alert(JSON.stringify(response.data));
+      //alert(JSON.stringify(response.data));
       return response
     } catch (e) {
       console.log(e)

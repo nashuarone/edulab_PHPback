@@ -39,18 +39,6 @@ const Navbar = () => {
             Новости
           </NavLink>
         </div>
-        <div className={s.item}>
-          <a href="s.com">Группы</a>
-        </div>
-        <div className={s.item}>
-          <a href="s.com">Задания и оценки</a>
-        </div>
-        <div className={s.item}>
-          <a href="s.com">Календарь</a>
-        </div>
-        <div className={s.item}>
-          <a href="s.com">Инструменты</a>
-        </div>
         {isAdminos && (
           <div className={s.itemA}>
             <NavLink to="/admin" activeClassName={s.activeLink}>
@@ -62,26 +50,14 @@ const Navbar = () => {
           <div className={s.friends}>
             <h3>
               Всего пользователей в системе -{" "}
-              {totalCount > 0
-                ? totalCount + 1
-                : "...для обновления данных посетите страницу с пользователями..."}
+              {totalCount > 0 ? (
+                totalCount + 1
+              ) : (
+                <span className={s.usersCount}>
+                  ...для обновления данных посетите страницу с пользователями...
+                </span>
+              )}
             </h3>
-            <div className={s.friendsblock}>
-              <div>
-                <img
-                  src="https://media.gettyimages.com/vectors/human-face-avatar-icon-profile-for-social-network-man-vector-vector-id1227618765"
-                  alt=""
-                />
-                <p>Препод</p>
-              </div>
-              <div>
-                <img
-                  src="https://media.gettyimages.com/vectors/human-face-avatar-icon-profile-for-social-network-man-vector-vector-id1227618765"
-                  alt=""
-                />
-                <p>Юзер с длинным ником</p>
-              </div>
-            </div>
           </div>
         )}
       </nav>

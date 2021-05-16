@@ -6,66 +6,33 @@ const Admin = () => {
   return (
     <div>
       <div className={s.darkTheme}>
-        Будь осторожен, мой друг, на этой странице...
+        Панель администратора v.0.2.1
         <div>
           <div className={s.contentMain}>
-            <span>Контент</span>
-            <div className={s.contentBlock}>
-              <div className={s.contentItem}>
-                <i className="fas fa-photo-video"></i>
-                <div>Медиа</div>
-              </div>
-              <div className={s.contentItem}>
-                <i className="fas fa-align-left"></i>
-                <div>Текст</div>
-              </div>
-              <div className={s.contentItem}>
-                <i className="fas fa-file-word"></i>
-                <div>Файлы</div>
-              </div>
-              <div className={s.contentItem}>
-                <i className="fas fa-link"></i>
-                <div>Ссылки</div>
-              </div>
-            </div>
-          </div>
-          <div className={s.contentMain}>
-            <span>Пользователи</span>
             <div className={s.contentBlock}>
               <div className={s.contentItem}>
                 <NavLink to={"/users"}>
-                  <i className="fas fa-user-friends"></i>
-                  <div>Все пользователи</div>
+                  <div>
+                    <i className="fas fa-user-friends"></i>
+                    <div>Пользователи</div>
+                  </div>
                 </NavLink>
               </div>
               <div className={s.contentItem}>
-                <i className="fas fa-graduation-cap"></i>
-                <div>Ученики</div>
+                <NavLink to={"/courses"}>
+                  <div>
+                    <i className="fas fa-book-reader"></i>
+                    <div>Курсы</div>
+                  </div>
+                </NavLink>
               </div>
               <div className={s.contentItem}>
-                <i className="fas fa-university"></i>
-                <div>Преподаватели</div>
-              </div>
-            </div>
-          </div>
-          <div className={s.contentMain}>
-            <span>Обучение</span>
-            <div className={s.contentBlock}>
-              <div className={s.contentItem}>
-                <i className="far fa-newspaper"></i>
-                <div>Новости</div>
-              </div>
-              <div className={s.contentItem}>
-                <i className="fas fa-book-reader"></i>
-                <div>Курсы</div>
-              </div>
-              <div className={s.contentItem}>
-                <i className="fas fa-video"></i>
-                <div>Вебинары</div>
-              </div>
-              <div className={s.contentItem}>
-                <i className="far fa-calendar-check"></i>
-                <div>Мероприятия</div>
+                <NavLink to={"/news"}>
+                  <div>
+                    <i className="far fa-newspaper"></i>
+                    <div>Новости</div>
+                  </div>
+                </NavLink>
               </div>
             </div>
           </div>

@@ -192,7 +192,7 @@ export const createUserProfile = (email, password, first_name, second_name, birt
   dispatch(toggleIsLoginButton(true));
   registrationAPI(email, password, first_name, second_name, birth_date).then((res) => {
     dispatch(toggleIsLoginButton(false));
-    dispatch(setLearner(res.data));
+    console.log(res.data);
   });
 };
 export const getUserProfile = (email, password) => (dispatch) => {

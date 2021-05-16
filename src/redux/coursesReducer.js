@@ -154,7 +154,7 @@ const coursesReducer = (state_c = initialState, action) => {
     case SET_ANSWER: {
       return {
         ...state_c,
-        answersData: [...state_c.answersData, action.answer],
+        answersData: [state_c.answersData.filter(it => it.id !== action.answer.id), action.answer],
       };
     }
     case TOGGLE_IS_FETCHING:

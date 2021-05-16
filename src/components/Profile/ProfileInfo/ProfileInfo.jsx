@@ -24,7 +24,7 @@ const ProfileInfo = (props) => {
 
   useEffect(() => {
     dispatch(getAnotherUserProfile(userId));
-  }, [userId, dispatch]);
+  }, [userId, dispatch, currentLearner.avatar]);
 
   const otherLearner = useSelector((s) => s.profilePage.otherProfileData);
 
@@ -66,7 +66,6 @@ const ProfileInfo = (props) => {
   if (gender === 1) {
     genderText = "Мужской";
   }
-debugger
   return (
     <div>
       <div className={s.profileTitle}>

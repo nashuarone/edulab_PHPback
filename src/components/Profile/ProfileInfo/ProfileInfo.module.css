@@ -16,7 +16,8 @@
   width: 50%;
 }
 .mainProfile img {
-  width: 80%;
+  width: 450px;
+  height: 450px;
   margin: auto;
   padding: 10px;
   border-radius: 50%;
@@ -58,4 +59,25 @@
 }
 .boldValue {
   font-weight: bold;
+}
+
+@media screen and (max-width: 1150px) {
+  .mainProfile img {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .mainProfile img {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .mainProfile img {
+    width: 200px;
+    height: 200px;
+  }
 }

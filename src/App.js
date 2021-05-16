@@ -8,7 +8,7 @@ import Footer from "./components/Footer/Footer";
 import News from "./components/News/News";
 import CoursesContainer from "./components/Courses/CoursesContainer";
 import Profile from './components/Profile/Profile';
-import Registration from './components/Registration/Registration';
+import { RegistrationForm } from './components/Registration/RegistrationForm';
 import Login from "./components/Registration/Login";
 import Disk from "./components/Disk/Disk"
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,8 +39,8 @@ function App() {
           <div className="app-wrapper-content">
             {!isAuth ? (
               <Switch>
-                <Route path="/registration" render={() => <Registration />} />
                 <Route exact path="/login" render={() => <Login />} />
+                <Route path="/registration" render={() => <RegistrationForm />} />
                 <Redirect to="/login" />
               </Switch>
             ) : (

@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import s from "../Courses.module.css";
-import { addUserCourse, getAllChapters, getCurrentCourse } from "../../../redux/coursesReducer";
+import "../ckeditornone.css";
+import { getAllChapters, getCurrentCourse } from "../../../redux/coursesReducer";
 import EditCourseItem from "./EditCourseItem";
 import EditCourseItemSkin from "./EditCourseItemSkin";
 //import { getAllCoursesAPI } from "../../api/api";
@@ -14,7 +16,7 @@ import EditCourseItemSkin from "./EditCourseItemSkin";
 const CourseItem = (props) => {
   //const [courseItemTitle, setCourseItemTitle] = useState("");
   const isTeacher = useSelector((s) => s.profilePage.isTeacher);
-  const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
+  //const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
   const courseChaptersData = useSelector((s) => s.coursesPage.courseChaptersData);
 
   let courseId = props.match.params.courseId;
@@ -100,7 +102,7 @@ const CourseItem = (props) => {
                 ))
               : "Курс не содержит материалов"}
           </div>
-          <div>
+          {/* <div>
             <button
               className={s.courseBtn}
               onClick={() =>
@@ -109,7 +111,7 @@ const CourseItem = (props) => {
             >
               Записаться на курс
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

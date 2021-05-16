@@ -12,8 +12,8 @@ const EditCourse = (props) => {
   const [img, setImg] = useState("");
   const [description, setDescription] = useState("");
   const [format, setFormat] = useState(1);
-  const [duration, setDuration] = useState(0);
-  const [value, setValue] = useState(0);
+  const [duration, setDuration] = useState(null);
+  const [value, setValue] = useState(null);
   const handlleChangeT = (e) => {
     setTitle(e.target.value);
   };
@@ -69,7 +69,7 @@ const EditCourse = (props) => {
               Формат курса
               <select value={format} onChange={handlleChangeF}>
                 <option value="1">Онлайн</option>
-                <option value="0">Офлайн</option>
+                <option value="0">Вебинар</option>
               </select>
             </label>
 

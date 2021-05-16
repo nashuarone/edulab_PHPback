@@ -116,7 +116,7 @@ const EditTestItem = (props) => {
                     answer2,
                     answer3,
                     answer4,
-                    correct_answer,
+                    +correct_answer,
                     score
                   )
                 )

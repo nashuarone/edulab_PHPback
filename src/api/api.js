@@ -617,3 +617,73 @@ export const addTestAnswerAPI = async (testId, answerNum) => {
     alert(e.response.data.error.message);
   }
 };
+
+export const createThemeAPI = async (theme) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}theme`,
+      { theme },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getAllThemesAPI = async () => {
+  try {
+    const response = await axios.get(
+      `${API_URL}themes`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const addCourseThemeAPI = async (courseId, themeId, theme) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}course/${courseId}/theme/${themeId}`,
+      {theme},
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getAllCourseThemesAPI = async (courseId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}course/${courseId}/themes`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};

@@ -18,11 +18,19 @@ const Courses = (props) => {
       <div className={s.editBlockTitle}>Курсы</div>
       <div className={s.editBlock}>
         {isTeacher && (
-          <div className={s.editModeRed}>
-            <NavLink to={"/courseditor"}>
-              <div className={s.editBlockTitle}>Перейти в редактор курсов</div>
-            </NavLink>
+          <div>
+            <div className={s.editModeRed}>
+              <NavLink to={"/courseditor"}>
+                <div className={s.editBlockTitle}>Перейти в редактор курсов</div>
+              </NavLink>
+            </div>
+            <div className={s.editModePurple}>
+              <NavLink to={"/themeditor"}>
+                <div className={s.editBlockTitle}>Перейти в редактор тем</div>
+              </NavLink>
+            </div>
           </div>
+
         )}
       </div>
       <div>

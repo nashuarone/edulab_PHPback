@@ -10,6 +10,10 @@ import {
   getAllChapterTestsAPI,
   addTestAnswerAPI,
   getMyCoursesAPI,
+  addCourseThemeAPI,
+  getAllCourseThemesAPI,
+  createThemeAPI,
+  getAllThemesAPI,
 } from "../api/api";
 
 const ADD_COURSE = "ADD_COURSE";
@@ -24,6 +28,10 @@ const SET_CHAPTER = "SET_CHAPTER";
 const SET_TEST = "SET_TEST";
 const SET_ALL_TESTS = "SET_ALL_TESTS";
 const SET_ANSWER = "SET_ANSWER";
+const CREATE_THEME = "CREATE_THEME";
+const SET_ALL_COMMON_THEMES = "SET_ALL_COMMON_THEMES";
+const SET_THEME = "SET_THEME";
+const SET_ALL_THEMES = "SET_ALL_THEMES";
 const UNSET_USER_COURSE = "UNSET_USER_COURSE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
@@ -57,6 +65,8 @@ let initialState = {
   currentChapterData: {},
   testsData: [],
   answersData: [],
+  themesData: [],
+  allThemesData: [],
   newPostText: "Pupiiiiiiii",
   newNameText: "",
   isFetching: false,
@@ -154,7 +164,34 @@ const coursesReducer = (state_c = initialState, action) => {
     case SET_ANSWER: {
       return {
         ...state_c,
-        answersData: [state_c.answersData.filter(it => it.id !== action.answer.id), action.answer],
+        answersData: [
+          state_c.answersData.filter((it) => it.id !== action.answer.id),
+          action.answer,
+        ],
+      };
+    }
+    case CREATE_THEME: {
+      return {
+        ...state_c,
+        allThemesData: [...state_c.allThemesData, action.theme],
+      };
+    }
+    case SET_ALL_COMMON_THEMES: {
+      return {
+        ...state_c,
+        allThemesData: [...action.themes],
+      };
+    }
+    case SET_THEME: {
+      return {
+        ...state_c,
+        themesData: [...state_c.themesData, action.theme],
+      };
+    }
+    case SET_ALL_THEMES: {
+      return {
+        ...state_c,
+        themesData: [...action.themes],
       };
     }
     case TOGGLE_IS_FETCHING:
@@ -181,6 +218,10 @@ export const setChapter = (chapter) => ({ type: SET_CHAPTER, chapter });
 export const setTest = (test) => ({ type: SET_TEST, test });
 export const setAllTests = (tests) => ({ type: SET_ALL_TESTS, tests });
 export const setAnswer = (answer) => ({ type: SET_ANSWER, answer });
+export const setCreatedTheme = (theme) => ({ type: CREATE_THEME, theme });
+export const setAllCommonThemes = (themes) => ({ type: SET_ALL_COMMON_THEMES, themes });
+export const setTheme = (theme) => ({ type: SET_THEME, theme });
+export const setAllThemes = (themes) => ({ type: SET_ALL_THEMES, themes });
 
 export const updateCourse = (
   courseId,
@@ -326,6 +367,46 @@ export const addTestAnswer = (testId, answerNum) => {
       dispatch(toggleIsFetching(false));
       dispatch(setAnswer(answer));
       console.log(answer);
+    });
+  };
+};
+export const createTheme = (theme) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    createThemeAPI(theme).then((theme) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setCreatedTheme(theme));
+      console.log(theme);
+    });
+  };
+};
+export const getAllThemes = () => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getAllThemesAPI().then((themes) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setAllCommonThemes(themes));
+      console.log(themes);
+    });
+  };
+};
+export const addCourseTheme = (courseId, theme) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    addCourseThemeAPI(courseId, theme).then((theme) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setTheme(theme));
+      console.log(theme);
+    });
+  };
+};
+export const getAllCourseThemes = (courseId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getAllCourseThemesAPI(courseId).then((themes) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setAllThemes(themes));
+      console.log(themes);
     });
   };
 };

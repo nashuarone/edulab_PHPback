@@ -21,6 +21,7 @@ import CourseItem from "./components/Courses/CourseItem/CourseItem";
 import ChapterItem from "./components/Courses/CourseItem/ChapterItem";
 import Users from './components/Users/Users';
 import CourseCertificate from './components/Courses/CourseCertificate';
+import CreateTheme from './components/Courses/CourseItem/CreateTheme';
 
 function App() {
   const isAuth = useSelector((s) => s.profilePage.isAuth);
@@ -59,6 +60,7 @@ function App() {
                   <Route path="/users" render={() => <Users />} />
                   <Route path="/profileditor" render={() => <ProfileInfoEdit />} />
                   <Route path="/courseditor" render={() => <EditCourse />} />
+                  <Route path="/themeditor" render={() => <CreateTheme />} />
                   <Redirect to="/profile" />
                 </Switch>
               </>

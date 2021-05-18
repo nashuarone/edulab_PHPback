@@ -11,6 +11,7 @@ import "../ckeditornone.css";
 import { getAllChapters, getCurrentCourse } from "../../../redux/coursesReducer";
 import EditCourseItem from "./EditCourseItem";
 import EditCourseItemSkin from "./EditCourseItemSkin";
+import AddCourseTheme from "./AddCourseTheme";
 //import { getAllCoursesAPI } from "../../api/api";
 
 const CourseItem = (props) => {
@@ -51,6 +52,13 @@ const CourseItem = (props) => {
           </div>
         )}
       </div>
+      <div className={s.editBlock}>
+        {isTeacher && (
+          <div className={s.editModeBlue}>
+            <AddCourseTheme courseId={courseId} />
+          </div>
+        )}
+      </div>
       <div>
         <div className={s.courseItem}>
           <div className={s.courseItemFlex}>
@@ -84,7 +92,9 @@ const CourseItem = (props) => {
                   <div key={chap.id}>
                     <div className={s.boldItemTitle}>{chap.title}</div>
                     <div>
-                      <NavLink to={"/course/" + courseId + "/chapter/" + chap.id}>
+                      <NavLink
+                        to={"/course/" + courseId + "/chapter/" + chap.id}
+                      >
                         <button className={s.courseBtn}>
                           Просмотреть содержание главы
                         </button>

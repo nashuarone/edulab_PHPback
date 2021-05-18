@@ -41,9 +41,14 @@
 .editModeRed {
   box-shadow: 0px 0px 10px 5px rgba(255,0,0,0.5) inset;
   padding: 10px 0px;
+  margin-bottom: 10px;
 }
 .editModePurple {
   box-shadow: 0px 0px 10px 5px rgba(255, 29, 244, 0.5) inset;
+  padding: 10px 0px;
+}
+.editModeBlue {
+  box-shadow: 0px 0px 10px 5px rgba(29, 33, 255, 0.5) inset;
   padding: 10px 0px;
 }
 

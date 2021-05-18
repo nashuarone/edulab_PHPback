@@ -27,6 +27,14 @@ const Admin = () => {
                 </NavLink>
               </div>
               <div className={s.contentItem}>
+                <NavLink to={"/messages"}>
+                  <div>
+                    <i className="fas fa-comment-dots"></i>
+                    <div>Сообщения</div>
+                  </div>
+                </NavLink>
+              </div>
+              <div className={s.contentItem}>
                 <NavLink to={"/news"}>
                   <div>
                     <i className="far fa-newspaper"></i>

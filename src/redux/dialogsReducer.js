@@ -80,7 +80,7 @@ export const getAllFeedbackMessages = () => {
     //dispatch(toggleIsFetching(true));
     getAllFeedbackMessagesAPI().then((messages) => {
       //dispatch(toggleIsFetching(false));
-      dispatch(setMailMessage(messages));
+      dispatch(setAllMailMessages(messages));
       console.log(messages);
     });
   };

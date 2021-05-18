@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addFeedbackMessage } from "../../redux/dialogsReducer";
+import React from "react";
+import { useSelector } from "react-redux";
 import s from "./Dialogs.module.css";
 
 const Messages = () => {

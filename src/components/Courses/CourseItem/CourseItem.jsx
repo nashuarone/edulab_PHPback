@@ -8,7 +8,11 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import s from "../Courses.module.css";
 import "../ckeditornone.css";
-import { getAllChapters, getCurrentCourse } from "../../../redux/coursesReducer";
+import {
+  getAllChapters,
+  getCurrentCourse,
+  getAllCourseThemes,
+} from "../../../redux/coursesReducer";
 import EditCourseItem from "./EditCourseItem";
 import EditCourseItemSkin from "./EditCourseItemSkin";
 import AddCourseTheme from "./AddCourseTheme";
@@ -19,6 +23,7 @@ const CourseItem = (props) => {
   const isTeacher = useSelector((s) => s.profilePage.isTeacher);
   //const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
   const courseChaptersData = useSelector((s) => s.coursesPage.courseChaptersData);
+  const themesData = useSelector((s) => s.coursesPage.themesData);
 
   let courseId = props.match.params.courseId;
   const currentCourseData = useSelector((s) => s.coursesPage.currentCourseData)
@@ -30,6 +35,9 @@ const CourseItem = (props) => {
   useEffect(() => {
     dispatch(getAllChapters(courseId));
   }, [dispatch, courseId]);
+  useEffect(() => {
+    dispatch(getAllCourseThemes(courseId));
+  }, [dispatch, courseId, themesData.length]);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Текущий курс</div>
@@ -78,6 +86,14 @@ const CourseItem = (props) => {
               </div>
               <div>Продолжительность: {currentCourseData.duration} часов</div>
               <div>Ценность: {currentCourseData.value} баллов</div>
+              <div>
+                <div>Темы курса</div>
+                {themesData.length > 0 ? themesData.map((coursethemes) => (
+                  <div key={coursethemes.id}>
+                    <div>{coursethemes.title}</div>
+                  </div>
+                )) : "Темы не закреплены"}
+              </div>
             </div>
             <div className={s.descriptionItem}>
               <span className={s.tittleDecor}>{currentCourseData.title}</span>

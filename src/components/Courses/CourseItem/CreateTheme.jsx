@@ -38,6 +38,9 @@ const CreateTheme = (props) => {
             </button>
           </div>
         </div>
+        <div>
+          Все темы
+        </div>
         {allThemesData.map((c) => (
           <div className={s.courseItem} key={c.id}>
             <div className={s.courseItemFlex}>

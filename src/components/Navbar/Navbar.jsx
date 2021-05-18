@@ -25,13 +25,8 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className={s.item}>
-          <NavLink to="/dialogs" activeClassName={s.activeLink}>
-            Сообщения
-          </NavLink>
-        </div>
-        <div className={s.item}>
-          <NavLink to="/disk" activeClassName={s.activeLink}>
-            Диск
+          <NavLink to="/feedback" activeClassName={s.activeLink}>
+            Обратная связь
           </NavLink>
         </div>
         <div className={s.item}>

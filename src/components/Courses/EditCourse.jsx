@@ -65,14 +65,6 @@ const EditCourse = (props) => {
               type="text"
               placeholder="Описание курса"
             />
-            <label className={s.regInput}>
-              Формат курса
-              <select value={format} onChange={handlleChangeF}>
-                <option value="1">Онлайн</option>
-                <option value="0">Вебинар</option>
-              </select>
-            </label>
-
             <input
               className={s.regInput}
               value={duration}
@@ -87,22 +79,33 @@ const EditCourse = (props) => {
               type="number"
               placeholder="Ценность"
             />
-            <button
-              onClick={() =>
-                dispatch(
-                  createCourseAPI(
-                    title,
-                    img,
-                    description,
-                    format,
-                    duration,
-                    value
+            <div>
+              <label className={s.regInput}>
+                Формат курса{" "}
+                <select value={format} onChange={handlleChangeF}>
+                  <option value="1">Онлайн</option>
+                  <option value="0">Вебинар</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <button
+                onClick={() =>
+                  dispatch(
+                    createCourseAPI(
+                      title,
+                      img,
+                      description,
+                      format,
+                      duration,
+                      value
+                    )
                   )
-                )
-              }
-            >
-              Загрузить курс
-            </button>
+                }
+              >
+                Загрузить курс
+              </button>
+            </div>
           </div>
         </div>
         {coursesData.map((c) => (

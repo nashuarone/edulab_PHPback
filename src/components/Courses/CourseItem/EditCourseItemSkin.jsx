@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ReactPlayer from "react-player";
 import s from "../Courses.module.css";
-import { updateCourse } from "../../../redux/coursesReducer";
+import { updateCourse, getAllThemes, addCourseTheme } from "../../../redux/coursesReducer";
 
 const EditCourseItemSkin = (props) => {
 //  const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
 
   const currentCourseData = useSelector((s) => s.coursesPage.currentCourseData);
+  const allThemesData = useSelector((s) => s.coursesPage.allThemesData);
 
   const dispatch = useDispatch();
 
@@ -17,6 +18,7 @@ const EditCourseItemSkin = (props) => {
   const [value, setValue] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [themenum, setThemenum] = useState(1);
   const handlleChangeI = (e) => {
     setImg(e.target.value);
   };
@@ -35,7 +37,12 @@ const EditCourseItemSkin = (props) => {
   const handlleChangeD = (e) => {
     setDescription(e.target.value);
   };
-
+  const handleTmemeChange = (e) => {
+    setThemenum(e.target.value);
+  };
+  useEffect(() => {
+    dispatch(getAllThemes());
+  }, [dispatch]);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Редактировать данные курса</div>
@@ -128,6 +135,36 @@ const EditCourseItemSkin = (props) => {
             >
               Отправить изменения
             </button>
+          </div>
+          <div>
+            <div>
+              <div>Темы</div>
+              {allThemesData.map((theme) => (
+                <div key={theme.id}>
+                  <div>
+                    <div>
+                      <label>
+                        <input
+                          name="answer"
+                          type="radio"
+                          value={theme.id}
+                          onChange={handleTmemeChange}
+                        />
+                        {theme.title}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div>
+                <button
+                  className={s.courseBtn}
+                  onClick={() => dispatch(addCourseTheme(currentCourseData.id, themenum))}
+                >
+                  Закрепить тему за курсом
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

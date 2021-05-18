@@ -618,11 +618,11 @@ export const addTestAnswerAPI = async (testId, answerNum) => {
   }
 };
 
-export const createThemeAPI = async (theme) => {
+export const createThemeAPI = async (title) => {
   try {
     const response = await axios.post(
       `${API_URL}theme`,
-      { theme },
+      { title },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }
@@ -648,6 +648,9 @@ export const getAllThemesAPI = async () => {
     console.log(JSON.stringify(response, null, 2));
     return response.data;
   } catch (e) {
+    if (e.response.data.error.message === "Not found.") {
+      return [];
+    }
     console.log(e);
     alert(e.response.data.error.message);
   }
@@ -683,6 +686,48 @@ export const getAllCourseThemesAPI = async (courseId) => {
     console.log(JSON.stringify(response, null, 2));
     return response.data;
   } catch (e) {
+    if (e.response.data.error.message === "Themes not found") {
+      return [];
+    }
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const addFeedbackMessageAPI = async (message) => {
+  try {
+    const response = await axios.post(`${API_URL}feedback`,
+    { message },
+    {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    if (e.response.data.error.message === "Themes not found") {
+      return [];
+    }
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getAllFeedbackMessagesAPI = async () => {
+  try {
+    const response = await axios.get(
+      `${API_URL}feedbacks`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    if (e.response.data.error.message === "Themes not found") {
+      return [];
+    }
     console.log(e);
     alert(e.response.data.error.message);
   }

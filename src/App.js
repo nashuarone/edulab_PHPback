@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Footer from "./components/Footer/Footer";
@@ -22,6 +21,7 @@ import ChapterItem from "./components/Courses/CourseItem/ChapterItem";
 import Users from './components/Users/Users';
 import CourseCertificate from './components/Courses/CourseCertificate';
 import CreateTheme from './components/Courses/CourseItem/CreateTheme';
+import Feedback from './components/Dialogs/Feedback';
 
 function App() {
   const isAuth = useSelector((s) => s.profilePage.isAuth);
@@ -48,7 +48,7 @@ function App() {
               <>
                 <Switch>
                   <Route path="/profile/:userId?" render={() => <Profile />} />
-                  <Route path="/dialogs" render={() => <DialogsContainer />} />
+                  <Route path="/feedback" render={() => <Feedback />} />
                   <Route path="/news" component={News} />
                   <Route path="/courses" render={() => <CoursesContainer />} />
                   <Route path="/course/:courseId/chapter/:chapterId?" render={() => <ChapterItem />} />

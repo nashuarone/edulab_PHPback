@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import s from "../Courses.module.css";
 import "../ckeditornone.css";
@@ -15,13 +14,9 @@ import {
 } from "../../../redux/coursesReducer";
 import EditCourseItem from "./EditCourseItem";
 import EditCourseItemSkin from "./EditCourseItemSkin";
-import AddCourseTheme from "./AddCourseTheme";
-//import { getAllCoursesAPI } from "../../api/api";
 
 const CourseItem = (props) => {
-  //const [courseItemTitle, setCourseItemTitle] = useState("");
   const isTeacher = useSelector((s) => s.profilePage.isTeacher);
-  //const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
   const courseChaptersData = useSelector((s) => s.coursesPage.courseChaptersData);
   const themesData = useSelector((s) => s.coursesPage.themesData);
 
@@ -57,13 +52,6 @@ const CourseItem = (props) => {
         {isTeacher && (
           <div className={s.editModePurple}>
             <EditCourseItemSkin />
-          </div>
-        )}
-      </div>
-      <div className={s.editBlock}>
-        {isTeacher && (
-          <div className={s.editModeBlue}>
-            <AddCourseTheme courseId={courseId} />
           </div>
         )}
       </div>

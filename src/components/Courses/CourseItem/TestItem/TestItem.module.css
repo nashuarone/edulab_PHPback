@@ -1,3 +1,9 @@
+.mainTest {
+  margin: 5px 0;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
 .testBlock {
   margin: 20px;
 }
@@ -23,4 +29,26 @@
 
 .formControl {
   color: red;
+}
+.editOrange {
+  border: 2px solid lightsalmon;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+.regInputTest {
+  margin: 0 5px 5px auto;
+  width: 97.3%;
+}
+.regInputTest2 {
+  margin: 0 5px 5px auto;
+  width: 48%;
+}
+.redTestBtn {
+  margin-top: 15px;
+  font-weight: bold;
+}
+.redTestBtn:hover {
+  color: red;
+  font-weight: bold;
 }

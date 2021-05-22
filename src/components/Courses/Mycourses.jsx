@@ -4,8 +4,13 @@ import { NavLink } from "react-router-dom";
 import ReactPlayer from 'react-player'
 import s from "./Courses.module.css";
 import Preloader from "../Common/Preloader";
-import { deleteUserCourse, getMyCourse } from "../../redux/coursesReducer";
+import {
+  deleteUserCourse,
+  getMyCourse,
+  getCourseProgress,
+} from "../../redux/coursesReducer";
 import { getAllCoursesAPI } from '../../api/api';
+//import CertificateButton from './CertificateButton';
 
 const Mycourses = (props) => {
   //const isTeacher = useSelector((s) => s.profilePage.isTeacher);
@@ -13,19 +18,27 @@ const Mycourses = (props) => {
   const myCoursesData = useSelector((s) => s.coursesPage.myCoursesData);
   const isFetching = useSelector((s) => s.coursesPage.isFetching);
   const dispatch = useDispatch()
+  const myCoursesIdArr = myCoursesData.map((it) => it.id);
   useEffect(() => {
     dispatch(getAllCoursesAPI());
   }, [dispatch]);
   useEffect(() => {
     dispatch(getMyCourse(currentLearnerId));
   }, [dispatch, currentLearnerId, myCoursesData.length]);
+  useEffect(() => {
+    if (myCoursesIdArr.length > 0) {
+      dispatch(getCourseProgress(myCoursesIdArr));
+    }
+    // eslint-disable-next-line
+  }, [dispatch, myCoursesIdArr.length]);
+  const allProgress = useSelector((s) => s.coursesPage.courseProgress);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Мои курсы</div>
       {isFetching ? <Preloader /> : null}
       <div>
         {myCoursesData.length > 0 ? (
-          myCoursesData.map((c) => (
+          myCoursesData.map((c, ind) => (
             <div className={s.courseItem} key={c.id}>
               <div className={s.courseItemFlex}>
                 <div className={s.coursePicture}>
@@ -53,11 +66,21 @@ const Mycourses = (props) => {
                   <button className={s.courseBtn}>Перейти к курсу</button>
                 </NavLink>
               </div>
-              <div>
-                <NavLink to={"/mycourse/certificate/" + c.id}>
-                  <button className={s.courseBtn}>Сертификат об окончании курса</button>
-                </NavLink>
-              </div>
+              {allProgress
+                .filter((it) => +it.course_id === c.id)
+                .map((prog) => (
+                  <div key={prog.course_id}>
+                    {/* <CertificateButton courseId={c.id} progress={allProgress[ind]} /> */}
+                    <NavLink to={"/mycourse/certificate/" + c.id}>
+                      <button
+                        disabled={prog.score <= (prog.max_score * 9) / 10}
+                        className={s.courseBtn}
+                      >
+                        Сертификат об окончании курса
+                      </button>
+                    </NavLink>
+                  </div>
+                ))}
               <div>
                 <button
                   className={s.courseBtn}

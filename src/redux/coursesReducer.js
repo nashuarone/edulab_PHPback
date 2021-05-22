@@ -1,4 +1,5 @@
 import {
+  deleteCourseAPI,
   getCurrentCourseAPI,
   updateCourseAPI,
   addUserCourseAPI,
@@ -7,6 +8,8 @@ import {
   getAllChaptersAPI,
   getChapterAPI,
   addChapterTestAPI,
+  deleteChapterTestAPI,
+  editChapterTestAPI,
   getAllChapterTestsAPI,
   addTestAnswerAPI,
   getMyCoursesAPI,
@@ -14,9 +17,12 @@ import {
   getAllCourseThemesAPI,
   createThemeAPI,
   getAllThemesAPI,
+  getCourseProgressAPI,
+  getAllCourseProgressAPI,
 } from "../api/api";
 
 const ADD_COURSE = "ADD_COURSE";
+const KICK_COURSE = "KICK_COURSE";
 const UPDATE_COURSE = "UPDATE_COURSE";
 const SET_CURRENT_COURSE = "SET_CURRENT_COURSE";
 const GET_COURSES = "GET_COURSES";
@@ -26,12 +32,16 @@ const SET_COURSE_CHAPTER = "SET_COURSE_CHAPTER";
 const SET_ALL_CHAPTERS = "SET_ALL_CHAPTERS";
 const SET_CHAPTER = "SET_CHAPTER";
 const SET_TEST = "SET_TEST";
+const EDIT_TEST = "EDIT_TEST";
+const DELETE_TEST = "DELETE_TEST";
 const SET_ALL_TESTS = "SET_ALL_TESTS";
 const SET_ANSWER = "SET_ANSWER";
 const CREATE_THEME = "CREATE_THEME";
 const SET_ALL_COMMON_THEMES = "SET_ALL_COMMON_THEMES";
 const SET_THEME = "SET_THEME";
 const SET_ALL_THEMES = "SET_ALL_THEMES";
+const SET_COURSE_PROGRESS = "SET_COURSE_PROGRESS";
+const SET_CURRENT_COURSE_PROGRESS = "SET_CURRENT_COURSE_PROGRESS";
 const UNSET_USER_COURSE = "UNSET_USER_COURSE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
@@ -67,6 +77,8 @@ let initialState = {
   answersData: [],
   themesData: [],
   allThemesData: [],
+  currentCourseProgress: {},
+  courseProgress: [],
   newPostText: "Pupiiiiiiii",
   newNameText: "",
   isFetching: false,
@@ -77,7 +89,15 @@ const coursesReducer = (state_c = initialState, action) => {
     case ADD_COURSE: {
       return {
         ...state_c,
-        coursesData: [...state_c.coursesData, action.course],
+        coursesData: [action.course, ...state_c.coursesData],
+      };
+    }
+    case KICK_COURSE: {
+      return {
+        ...state_c,
+        coursesData: [
+          state_c.coursesData.filter((it) => it.course_id !== action.courseId),
+        ],
       };
     }
     case UPDATE_COURSE: {
@@ -155,6 +175,22 @@ const coursesReducer = (state_c = initialState, action) => {
         testsData: [...state_c.testsData, action.test],
       };
     }
+    case DELETE_TEST: {
+      return {
+        ...state_c,
+        testsData: [state_c.testsData.filter((it) => it.id !== action.testId)],
+      };
+    }
+    case EDIT_TEST: {
+      return {
+        ...state_c,
+        testsData: [
+          state_c.testsData.map((it) =>
+            action.test.id === it.id ? action.test : it
+          ),
+        ],
+      };
+    }
     case SET_ALL_TESTS: {
       return {
         ...state_c,
@@ -194,6 +230,18 @@ const coursesReducer = (state_c = initialState, action) => {
         themesData: [...action.themes],
       };
     }
+    case SET_COURSE_PROGRESS: {
+      return {
+        ...state_c,
+        courseProgress: [...action.progresses],
+      };
+    }
+    case SET_CURRENT_COURSE_PROGRESS: {
+      return {
+        ...state_c,
+        currentCourseProgress: {...action.progress},
+      };
+    }
     case TOGGLE_IS_FETCHING:
       return {
         ...state_c,
@@ -205,6 +253,7 @@ const coursesReducer = (state_c = initialState, action) => {
 };
 
 export const addCourse = (course) => ({ type: ADD_COURSE, course });
+export const kickCourse = (courseId) => ({ type: KICK_COURSE, courseId });
 export const setUpdateCourse = (course) => ({ type: UPDATE_COURSE, course });
 export const setCurrentCourse = (course) => ({ type: SET_CURRENT_COURSE, course });
 export const getAllCourses = (courses) => ({ type: GET_COURSES, courses });
@@ -216,13 +265,27 @@ export const setCourseChapter = (chapter) => ({ type: SET_COURSE_CHAPTER, chapte
 export const setAllChapters = (chapters) => ({ type: SET_ALL_CHAPTERS, chapters });
 export const setChapter = (chapter) => ({ type: SET_CHAPTER, chapter });
 export const setTest = (test) => ({ type: SET_TEST, test });
+export const deleteTest = (testId) => ({ type: DELETE_TEST, testId });
+export const changeTest = (test) => ({ type: EDIT_TEST, test });
 export const setAllTests = (tests) => ({ type: SET_ALL_TESTS, tests });
 export const setAnswer = (answer) => ({ type: SET_ANSWER, answer });
 export const setCreatedTheme = (theme) => ({ type: CREATE_THEME, theme });
 export const setAllCommonThemes = (themes) => ({ type: SET_ALL_COMMON_THEMES, themes });
 export const setTheme = (theme) => ({ type: SET_THEME, theme });
 export const setAllThemes = (themes) => ({ type: SET_ALL_THEMES, themes });
+export const setCourseProgress = (progresses) => ({ type: SET_COURSE_PROGRESS, progresses });
+export const setCurrentCourseProgress = (progress) => ({ type: SET_CURRENT_COURSE_PROGRESS, progress });
 
+export const deleteCourse = (courseId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    deleteCourseAPI(courseId).then((data) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(kickCourse(courseId));
+      console.log(data);
+    });
+  };
+};
 export const updateCourse = (
   courseId,
   title,
@@ -350,6 +413,52 @@ export const addChapterTest = (
     });
   };
 };
+export const deleteChapterTest = (
+  courseId,
+  chapterId,
+  testId,
+) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    deleteChapterTestAPI(courseId, chapterId, testId).then((test) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(deleteTest(testId));
+      console.log(test);
+    });
+  };
+};
+export const editChapterTest = (
+  courseId,
+  chapterId,
+  testId,
+  question,
+  answer1,
+  answer2,
+  answer3,
+  answer4,
+  correct_answer,
+  score
+) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    editChapterTestAPI(
+      courseId,
+      chapterId,
+      testId,
+      question,
+      answer1,
+      answer2,
+      answer3,
+      answer4,
+      correct_answer,
+      score
+    ).then((test) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(changeTest(test));
+      console.log(test);
+    });
+  };
+};
 export const getAllChapterTests = (courseId, chapterId) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
@@ -407,6 +516,26 @@ export const getAllCourseThemes = (courseId) => {
       dispatch(toggleIsFetching(false));
       dispatch(setAllThemes(themes));
       console.log(themes);
+    });
+  };
+};
+export const getCourseProgress = (courseIdArr) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getAllCourseProgressAPI(courseIdArr).then((progressArr) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setCourseProgress(progressArr));
+      console.log(progressArr);
+    });
+  };
+};
+export const getCurrentCourseProgress = (courseId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getCourseProgressAPI(courseId).then((progressArr) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setCurrentCourseProgress(progressArr[0]));
+      console.log(progressArr);
     });
   };
 };

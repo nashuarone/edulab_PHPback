@@ -4,7 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import { getCurrentCourse } from "../../redux/coursesReducer";
+import {
+  getCurrentCourse,
+  getCurrentCourseProgress,
+} from "../../redux/coursesReducer";
 import s from "./Courses.module.css";
 import pic from "../../assets/images/certifSign.png";
 import logo from "../../assets/images/flowers-logo-png-6.png";
@@ -27,6 +30,10 @@ const CourseCertificate = (props) => {
   useEffect(() => {
     dispatch(getCurrentCourse(courseId));
   }, [dispatch, courseId]);
+  useEffect(() => {
+    dispatch(getCurrentCourseProgress(courseId));
+  }, [dispatch, courseId]);
+  const progress = useSelector((s) => s.coursesPage.currentCourseProgress);
   return (
     <>
       <div className={s.coursesPage}>
@@ -38,10 +45,7 @@ const CourseCertificate = (props) => {
         <div className={s.certifImg} id="divToPrint" ref={inputRef}>
           <div className={s.certifInto}>
             <div className={s.certifLogo}>
-              <img
-                src={logo}
-                alt="default-logo"
-              />
+              <img src={logo} alt="default-logo" />
             </div>
             <div className={s.certifLogoTitle}>eduLab</div>
             <div className={s.certifTitle}>Сертификат</div>
@@ -54,6 +58,9 @@ const CourseCertificate = (props) => {
               <i className="fas fa-angle-double-left"></i>{" "}
               {currentCourseData.title}{" "}
               <i className="fas fa-angle-double-right"></i>
+            </div>
+            <div className={s.certifItalic}>
+              набрав {progress.score} баллов из {progress.max_score}
             </div>
             <div className={s.certifSign}>
               <div>Заместитель генерального директора</div>

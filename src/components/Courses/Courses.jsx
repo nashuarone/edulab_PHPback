@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from "react-router-dom";
 import ReactPlayer from 'react-player'
 import s from "./Courses.module.css";
-import { addUserCourse } from "../../redux/coursesReducer";
+import { addUserCourse, deleteCourse } from "../../redux/coursesReducer";
 import { getAllCoursesAPI } from '../../api/api';
 
 const Courses = (props) => {
   const isTeacher = useSelector((s) => s.profilePage.isTeacher);
   const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
+  const coursesData = useSelector((s) => s.coursesPage.coursesData);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllCoursesAPI());
-  }, [dispatch]);
+  }, [dispatch, coursesData.length]);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Курсы</div>
@@ -21,7 +22,9 @@ const Courses = (props) => {
           <div>
             <div className={s.editModeRed}>
               <NavLink to={"/courseditor"}>
-                <div className={s.editBlockTitle}>Перейти в редактор курсов</div>
+                <div className={s.editBlockTitle}>
+                  Перейти в редактор курсов
+                </div>
               </NavLink>
             </div>
             <div className={s.editModePurple}>
@@ -30,7 +33,6 @@ const Courses = (props) => {
               </NavLink>
             </div>
           </div>
-
         )}
       </div>
       <div>
@@ -74,6 +76,16 @@ const Courses = (props) => {
                 Записаться на курс
               </button>
             </div>
+            {isTeacher && (
+              <div>
+                <button
+                  className={s.courseBtn}
+                  onClick={() => dispatch(deleteCourse(c.id, currentLearnerId))}
+                >
+                  Удалить курс
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

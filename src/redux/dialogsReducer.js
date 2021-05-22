@@ -1,8 +1,13 @@
-import { addFeedbackMessageAPI, getAllFeedbackMessagesAPI } from "../api/api";
+import {
+  addFeedbackMessageAPI,
+  getAllFeedbackMessagesAPI,
+  deleteFeedbackMessageAPI,
+} from "../api/api";
 
 const SEND_MESSAGE = "SEND-MESSAGE";
 const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT";
 const SEND_MESSAGE_MAIL = "SEND_MESSAGE_MAIL";
+const DELETE_MESSAGE_MAIL = "DELETE_MESSAGE_MAIL";
 const GET_MESSAGES_MAIL = "GET_MESSAGE_MAIL";
 
 // else if zarefactori v switch pozhaluista pozzhe - sebe govoryu
@@ -42,6 +47,13 @@ const dialogsReducer = (state_d = initialState, action) => {
       ...state_d,
       mailMessagesData: [...state_d.mailMessagesData, action.message],
     };
+  } else if (action.type === DELETE_MESSAGE_MAIL) {
+    return {
+      ...state_d,
+      mailMessagesData: [
+        state_d.mailMessagesData.filter((it) => it.id !== action.messageId),
+      ],
+    };
   } else if (action.type === GET_MESSAGES_MAIL) {
     return {
       ...state_d,
@@ -55,6 +67,10 @@ export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
 export const setMailMessage = (message) => ({
   type: SEND_MESSAGE_MAIL,
   message,
+});
+export const unsetMailMessage = (messageId) => ({
+  type: DELETE_MESSAGE_MAIL,
+  messageId,
 });
 export const setAllMailMessages = (messages) => ({
   type: GET_MESSAGES_MAIL,
@@ -71,6 +87,16 @@ export const addFeedbackMessage = (message) => {
     addFeedbackMessageAPI(message).then((message) => {
       //dispatch(toggleIsFetching(false));
       dispatch(setMailMessage(message));
+      console.log(message);
+    });
+  };
+};
+export const deleteFeedbackMessage = (messageId) => {
+  return (dispatch) => {
+    //dispatch(toggleIsFetching(true));
+    deleteFeedbackMessageAPI(messageId).then((message) => {
+      //dispatch(toggleIsFetching(false));
+      dispatch(unsetMailMessage(messageId));
       console.log(message);
     });
   };

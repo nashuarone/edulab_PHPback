@@ -60,6 +60,9 @@
 .boldValue {
   font-weight: bold;
 }
+.avatarInput {
+  width: 50%;
+}
 
 @media screen and (max-width: 1150px) {
   .mainProfile img {

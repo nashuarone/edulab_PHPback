@@ -158,10 +158,11 @@ const ProfileInfo = (props) => {
                 Удалить аватар
               </button>
               <input
+                className={s.avatarInput}
                 onChange={handlleChangeA}
                 value={avatar}
                 type="text"
-                placeholder="Загрузить аватар"
+                placeholder="Ссылка на аватар в формате .jpg или .png"
               />
               <button onClick={() => dispatch(putUserAvatar(avatar))}>
                 Ok

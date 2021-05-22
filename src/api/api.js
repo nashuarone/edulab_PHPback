@@ -297,6 +297,18 @@ export const updateCourseAPI = async (
   }
 };
 
+export const deleteCourseAPI = async (courseId) => {
+  try {
+    const response = await axios.delete(`${API_URL}course/${courseId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    alert(e.response.data.error.message);
+  }
+};
+
 export function getAllCoursesAPI() {
   return async (dispatch) => {
     try {
@@ -583,6 +595,64 @@ export const addChapterTestAPI = async (
   }
 };
 
+export const deleteChapterTestAPI = async (
+  courseId,
+  chapterId,
+  testId,
+) => {
+  try {
+    const response = await axios.delete(
+      `${API_URL}course/${courseId}/chapter/${chapterId}/test/${testId}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const editChapterTestAPI = async (
+  courseId,
+  chapterId,
+  testId,
+  question,
+  answer1,
+  answer2,
+  answer3,
+  answer4,
+  correct_answer,
+  score
+) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}course/${courseId}/chapter/${chapterId}/test/${testId}`,
+      {
+        question,
+        answer1,
+        answer2,
+        answer3,
+        answer4,
+        correct_answer,
+        score,
+      },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
 export const getAllChapterTestsAPI = async (courseId, chapterId) => {
   try {
     const response = await axios.get(
@@ -648,7 +718,7 @@ export const getAllThemesAPI = async () => {
     console.log(JSON.stringify(response, null, 2));
     return response.data;
   } catch (e) {
-    if (e.response.data.error.message === "Not found.") {
+    if (e.response.data.error.message === "Themes not found") {
       return [];
     }
     console.log(e);
@@ -701,13 +771,28 @@ export const addFeedbackMessageAPI = async (message) => {
     {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
-    //alert(JSON.stringify(response.data, null, 2));
+    alert("Ваше сообщение отправлено администратору");
     console.log(JSON.stringify(response, null, 2));
     return response.data;
   } catch (e) {
     if (e.response.data.error.message === "Themes not found") {
       return [];
     }
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const deleteFeedbackMessageAPI = async (messageId) => {
+  try {
+    const response = await axios.delete(`${API_URL}feedback/${messageId}`,
+    {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log(JSON.stringify(response, null, 2));
+    alert("Сообщение удалено");
+    return response.data;
+  } catch (e) {
     console.log(e);
     alert(e.response.data.error.message);
   }
@@ -728,6 +813,41 @@ export const getAllFeedbackMessagesAPI = async () => {
     if (e.response.data.error.message === "Themes not found") {
       return [];
     }
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getCourseProgressAPI = async (courseId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}progress/course?course_ids[]=${courseId}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getAllCourseProgressAPI = async (courseIdArr) => {
+  try {
+    const resArrStr = courseIdArr.map((it) => `course_ids[]=${it}&`);
+    const response = await axios.get(
+      `${API_URL}progress/course?${resArrStr.join("")}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
     console.log(e);
     alert(e.response.data.error.message);
   }

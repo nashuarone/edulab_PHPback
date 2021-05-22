@@ -54,6 +54,11 @@
 
 .regInput {
   margin: 0 5px 5px auto;
+  width: 98%;
+}
+.regInputEdit {
+  margin: 0 5px 5px auto;
+  width: 32%;
 }
 .regInputTest {
   margin: 0 5px 5px auto;
@@ -108,7 +113,7 @@
   background-size: cover;
 }
 .certifInto {
-  padding: 90px 180px;
+  padding: 80px 180px;
   text-align: center;
 }
 .certifTitle {

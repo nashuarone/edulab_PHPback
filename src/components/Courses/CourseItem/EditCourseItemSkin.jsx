@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import ReactPlayer from "react-player";
 import s from "../Courses.module.css";
 import { updateCourse, getAllThemes, addCourseTheme } from "../../../redux/coursesReducer";
@@ -82,7 +83,7 @@ const EditCourseItemSkin = (props) => {
                 value={duration}
                 onChange={handlleChangeDu}
                 type="number"
-                placeholder="Продолжительность"
+                placeholder="Продолжительность в часах"
               />
               <div>Ценность: {currentCourseData.value} баллов</div>
               <input
@@ -90,7 +91,7 @@ const EditCourseItemSkin = (props) => {
                 value={value}
                 onChange={handlleChangeV}
                 type="number"
-                placeholder="Ценность"
+                placeholder="Ценность (баллы)"
               />
             </div>
             <div className={s.descriptionItem}>
@@ -139,27 +140,33 @@ const EditCourseItemSkin = (props) => {
           <div>
             <div>
               <div>Темы</div>
-              {allThemesData.map((theme) => (
-                <div key={theme.id}>
-                  <div>
+              {allThemesData.length > 0 ? (
+                allThemesData.map((theme) => (
+                  <div key={theme.id}>
                     <div>
-                      <label>
-                        <input
-                          name="answer"
-                          type="radio"
-                          value={theme.id}
-                          onChange={handleTmemeChange}
-                        />
-                        {theme.title}
-                      </label>
+                      <div>
+                        <label>
+                          <input
+                            name="answer"
+                            type="radio"
+                            value={theme.id}
+                            onChange={handleTmemeChange}
+                          />
+                          {theme.title}
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <span>Темы еще не созданы <NavLink to={"/themeditor"}><button>Перейти в редактор тем</button></NavLink></span>
+              )}
               <div>
                 <button
                   className={s.courseBtn}
-                  onClick={() => dispatch(addCourseTheme(currentCourseData.id, themenum))}
+                  onClick={() =>
+                    dispatch(addCourseTheme(currentCourseData.id, themenum))
+                  }
                 >
                   Закрепить тему за курсом
                 </button>

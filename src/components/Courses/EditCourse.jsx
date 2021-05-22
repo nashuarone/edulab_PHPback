@@ -45,51 +45,50 @@ const EditCourse = (props) => {
           <div>Добавить новый курс</div>
           <div className={s.newCourseBlock}>
             <input
-              className={s.regInput}
+              className={s.regInputEdit}
               value={title}
               onChange={handlleChangeT}
               type="text"
               placeholder="Введите заголовок"
             />
             <input
-              className={s.regInput}
+              className={s.regInputEdit}
               value={img}
               onChange={handlleChangeI}
               type="text"
               placeholder="Ссылка на картинку"
             />
             <input
-              className={s.regInput}
+              className={s.regInputEdit}
               value={description}
               onChange={handlleChangeD}
               type="text"
               placeholder="Описание курса"
             />
             <input
-              className={s.regInput}
+              className={s.regInputEdit}
               value={duration}
               onChange={handlleChangeDu}
               type="number"
-              placeholder="Продолжительность"
+              placeholder="Продолжительность в часах"
             />
             <input
-              className={s.regInput}
+              className={s.regInputEdit}
               value={value}
               onChange={handlleChangeV}
               type="number"
-              placeholder="Ценность"
+              placeholder="Ценность (баллы)"
             />
-            <div>
-              <label className={s.regInput}>
-                Формат курса{" "}
-                <select value={format} onChange={handlleChangeF}>
-                  <option value="1">Онлайн</option>
-                  <option value="0">Вебинар</option>
-                </select>
-              </label>
-            </div>
+            <label className={s.regInput}>
+              Формат курса{" "}
+              <select value={format} onChange={handlleChangeF}>
+                <option value="1">Онлайн</option>
+                <option value="0">Вебинар</option>
+              </select>
+            </label>
             <div>
               <button
+                className={s.courseBtn}
                 onClick={() =>
                   dispatch(
                     createCourseAPI(

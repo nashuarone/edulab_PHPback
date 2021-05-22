@@ -84,6 +84,7 @@ export const RegistrationForm = () => {
               {errors.lastName && touched.lastName ? (
                 <div className={s.formControl}>{errors.lastName}</div>
               ) : null}
+              <div className={s.birthText}>Введите дату вашего рождения. Вам должно быть не менее 18 лет</div>
               <Field className={s.regInput} name="birthdate" type="date" />
               {errors.birthdate && touched.birthdate ? (
                 <div className={s.formControl}>{errors.birthdate}</div>

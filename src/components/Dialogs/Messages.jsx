@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllFeedbackMessages } from "../../redux/dialogsReducer";
+import {
+  getAllFeedbackMessages,
+  deleteFeedbackMessage,
+} from "../../redux/dialogsReducer";
 import s from "./Dialogs.module.css";
 
 const Messages = () => {
@@ -9,7 +12,7 @@ const Messages = () => {
   const mailMessagesData = useSelector((s) => s.dialogsPage.mailMessagesData);
   useEffect(() => {
     dispatch(getAllFeedbackMessages());
-  }, [dispatch]);
+  }, [dispatch, mailMessagesData.length]);
 
   return (
     <div className={s.dialogs}>
@@ -22,8 +25,17 @@ const Messages = () => {
                 <div className={s.messageItem}>{mes.message}</div>
                 <div>
                   <NavLink to={"/profile/" + mes.id}>
-                    <span>Перейти в профиль пользователя</span>
+                    <span className={s.deleteBtn}>
+                      Перейти в профиль пользователя
+                    </span>
                   </NavLink>
+                  <span>
+                    <button
+                      onClick={() => dispatch(deleteFeedbackMessage(mes.id))}
+                    >
+                      Удалить сообщение
+                    </button>
+                  </span>
                 </div>
               </div>
             </div>

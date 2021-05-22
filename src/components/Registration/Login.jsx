@@ -17,7 +17,7 @@ const Login = () => {
   const dispatch = useDispatch()
   return (
     <div className={s.mainLoginForm}>
-      <h1>Log in</h1>
+      <h1>Вход</h1>
       <div className={s.inputsFlex}>
         <input
           className={s.regInput}
@@ -29,7 +29,7 @@ const Login = () => {
         <input
           className={s.regInput}
           value={password}
-          
+
           onChange={handlleChangeP}
           type="password"
           placeholder="Введите пароль"

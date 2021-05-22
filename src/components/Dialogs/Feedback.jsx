@@ -15,6 +15,7 @@ const Feedback = (props) => {
       <div className={s.messages}>
         <div>
           <textarea
+           className={s.bigtextarea}
             placeholder="Опишите вашу проблему"
             onChange={handlleChangeM}
             value={message}

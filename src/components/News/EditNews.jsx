@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
-import { createNewsAPI } from "../../api/api";
+import { createNews } from "../../redux/newsReducer";
 import s from "./Courses.module.css";
 
 const EditCourse = (props) => {
@@ -48,7 +48,7 @@ const EditCourse = (props) => {
               />
               <button
                 onClick={() =>
-                  dispatch(createNewsAPI(title, newsImg, description))
+                  dispatch(createNews(title, newsImg, description))
                 }
               >
                 Загрузить новости

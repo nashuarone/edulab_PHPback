@@ -6,13 +6,16 @@ import "./index.css";
 import App from "./App";
 import store from "./redux/reduxStore";
 import reportWebVitals from "./reportWebVitals";
+import ErrorBoundary from "./ErrorBoundary";
 
 let rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ErrorBoundary>
     </React.StrictMode>,
     document.getElementById("root")
   );

@@ -1,4 +1,4 @@
-import { getAllUsersAPI, deleteUserAPI, putUserRoleAPI } from "../api/api";
+import { getAllUsersAPI, deleteUserAPI, putUserRoleAPI, getCourseUsersAPI } from "../api/api";
 
 const SET_USERS = "SET_USERS";
 const SET_ROLE = "SET_ROLE";
@@ -6,9 +6,11 @@ const SET_FILTERED_USERS = "SET_FILTERED_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const SET_COURSE_USERS = "SET_COURSE_USERS";
 
 let initialState = {
   users: [],
+  courseUsers: [],
   pageSize: 10,
   totalCount: 0,
   currentPage: 1,
@@ -48,6 +50,11 @@ const userReducer = (state_u = initialState, action) => {
         ...state_u,
         totalCount: action.totalCount,
       };
+    case SET_COURSE_USERS:
+      return {
+        ...state_u,
+        courseUsers: action.courseUsersData,
+      };
     case TOGGLE_IS_FETCHING:
       return {
         ...state_u,
@@ -59,6 +66,7 @@ const userReducer = (state_u = initialState, action) => {
 };
 
 export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setCourseUsers = (courseUsersData) => ({ type: SET_COURSE_USERS, courseUsersData });
 export const setFilteredUsers = (userId) => ({ type: SET_FILTERED_USERS, userId });
 export const setUserRole = (userId, role) => ({ type: SET_ROLE, userId, role });
 export const setCurrentPage = (pageNumber) => ({
@@ -101,6 +109,15 @@ export const putUserRole = (userId, role) => {
       dispatch(toggleIsFetching(false));
       dispatch(setUserRole(res.data.id, res.data.role));
       console.log(res.data)
+    });
+  };
+};
+export const getCourseUsers = (courseId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    getCourseUsersAPI(courseId).then((data) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setCourseUsers(data));
     });
   };
 };

@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import EditNews from "./EditNews";
 import s from "./Courses.module.css";
-import { getAllNewsAPI } from "../../api/api";
 
 const News = (props) => {
   const isAdmin = useSelector((s) => s.profilePage.isAdminos);
   const newsData = useSelector((s) => s.newsPage.newsData);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllNewsAPI());
-  }, [dispatch]);
+  //const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getAllNewsAPI());
+  // }, [dispatch]);
   return (
     <div className={s.coursesPage}>
       <div>Новости</div>

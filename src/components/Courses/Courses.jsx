@@ -8,6 +8,7 @@ import { getAllCoursesAPI } from '../../api/api';
 
 const Courses = (props) => {
   const isTeacher = useSelector((s) => s.profilePage.isTeacher);
+  const isAdminos = useSelector((s) => s.profilePage.isAdminos);
   const currentLearnerId = useSelector((s) => s.profilePage.profileData.id);
   const coursesData = useSelector((s) => s.coursesPage.coursesData);
   const dispatch = useDispatch()
@@ -16,22 +17,25 @@ const Courses = (props) => {
   }, [dispatch, coursesData.length]);
   return (
     <div className={s.coursesPage}>
-      <div className={s.editBlockTitle}>Курсы</div>
+      <div className={s.editBlockTitle}>Все курсы</div>
+      <NavLink to={"/themes"}>
+        <div title="выход на страницу тем" className={s.editBlockSubtitle}>
+          <i className="fas fa-arrow-alt-circle-left"></i> На страницу тем
+        </div>
+      </NavLink>
       <div className={s.editBlock}>
         {isTeacher && (
-          <div>
-            <div className={s.editModeRed}>
-              <NavLink to={"/courseditor"}>
-                <div className={s.editBlockTitle}>
-                  Перейти в редактор курсов
-                </div>
-              </NavLink>
-            </div>
-            <div className={s.editModePurple}>
-              <NavLink to={"/themeditor"}>
-                <div className={s.editBlockTitle}>Перейти в редактор тем</div>
-              </NavLink>
-            </div>
+          <div className={s.editModeRed}>
+            <NavLink to={"/courseditor"}>
+              <div className={s.editBlockTitle}>Перейти в редактор курсов</div>
+            </NavLink>
+          </div>
+        )}
+        {isAdminos && (
+          <div className={s.editModePurple}>
+            <NavLink to={"/themeditor"}>
+              <div className={s.editBlockTitle}>Перейти в редактор тем</div>
+            </NavLink>
           </div>
         )}
       </div>
@@ -64,6 +68,15 @@ const Courses = (props) => {
                 <NavLink to={"/course/" + c.id}>
                   <button className={s.courseBtn}>
                     Добавить главы и контент курса
+                  </button>
+                </NavLink>
+              </div>
+            )}
+            {isTeacher && (
+              <div>
+                <NavLink to={"/learners/" + c.id}>
+                  <button className={s.courseBtn}>
+                    Пользователи записанные на курс
                   </button>
                 </NavLink>
               </div>

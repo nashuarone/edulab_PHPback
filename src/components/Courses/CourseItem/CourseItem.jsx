@@ -11,6 +11,7 @@ import {
   getAllChapters,
   getCurrentCourse,
   getAllCourseThemes,
+  deleteCourseChapter
 } from "../../../redux/coursesReducer";
 import EditCourseItem from "./EditCourseItem";
 import EditCourseItemSkin from "./EditCourseItemSkin";
@@ -25,11 +26,13 @@ const CourseItem = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCurrentCourse(courseId));
-  }, [dispatch, courseId, currentCourseData.title]);
+    if (currentCourseData.id !== courseId) {
+      dispatch(getCurrentCourse(courseId));
+    }
+  }, [dispatch, courseId, currentCourseData.id]);
   useEffect(() => {
     dispatch(getAllChapters(courseId));
-  }, [dispatch, courseId]);
+  }, [dispatch, courseId, courseChaptersData.length]);
   useEffect(() => {
     dispatch(getAllCourseThemes(courseId));
   }, [dispatch, courseId, themesData.length]);
@@ -76,11 +79,13 @@ const CourseItem = (props) => {
               <div>Ценность: {currentCourseData.value} баллов</div>
               <div>
                 <div>Темы курса</div>
-                {themesData.length > 0 ? themesData.map((coursethemes) => (
-                  <div key={coursethemes.id}>
-                    <div>{coursethemes.title}</div>
-                  </div>
-                )) : "Темы не закреплены"}
+                {themesData.length > 0
+                  ? themesData.map((coursethemes) => (
+                      <div key={coursethemes.id}>
+                        <div>{coursethemes.title}</div>
+                      </div>
+                    ))
+                  : "Темы не закреплены"}
               </div>
             </div>
             <div className={s.descriptionItem}>
@@ -103,6 +108,16 @@ const CourseItem = (props) => {
                           Просмотреть содержание главы
                         </button>
                       </NavLink>
+                    </div>
+                    <div>
+                      <button
+                        className={s.courseBtn}
+                        onClick={() =>
+                          dispatch(deleteCourseChapter(courseId, chap.id))
+                        }
+                      >
+                        Удалить главу
+                      </button>
                     </div>
                     <div>
                       {/* <div className='editor' dangerouslySetInnerHTML={{__html: chap.content}}></div> */}

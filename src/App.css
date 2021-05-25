@@ -19,6 +19,18 @@
   background-color: whitesmoke;
 }
 
+.errorBlock {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+.errorBlock > div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 /* .App {
   text-align: center;
 }

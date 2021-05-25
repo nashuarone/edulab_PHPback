@@ -1,5 +1,6 @@
 .userItem {
   display: flex;
+  margin: 10px 0;
 }
 .photosize img {
   width: 150px;
@@ -24,4 +25,40 @@
 .redBtn:hover {
   color: red;
   font-weight: bold;
+}
+
+.courseUsersPage {
+  margin: 20px 10px;
+}
+.courseBlock {
+  display: flex;
+}
+.courseUsersPic {
+  width: 35%;
+}
+.courseUsersPic img {
+  width: 100%;
+}
+.courseUsersDesc {
+  width: 65%;
+  padding: 0 20px;
+}
+.tittleDecor {
+  font-weight: bold;
+  font-size: 20px;
+}
+.courseDescription {
+  padding: 20px 0;
+}
+.tittleUser {
+  margin: 10px 0;
+  font-weight: bold;
+}
+.photosizeCU img {
+  width: 100px;
+  border-radius: 10px;
+}
+.courseUsersBlock {
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -147,3 +147,10 @@
 .formControl {
   color: red;
 }
+
+.themesBlock {
+  margin: 0 20px;
+}
+.themesBold {
+  font-weight: bold;
+}

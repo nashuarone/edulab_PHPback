@@ -96,7 +96,7 @@ export const EditTestItemForm = (props) => {
                     ) : null}
                     <Field
                       className={s.regInputTest}
-                      placeholder="Введите третий вариант ответа"
+                      placeholder="Введите четвертый вариант ответа"
                       name="answer4"
                     />
                     {errors.answer4 && touched.answer4 ? (

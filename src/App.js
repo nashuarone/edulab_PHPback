@@ -23,6 +23,10 @@ import CourseCertificate from './components/Courses/CourseCertificate';
 import CreateTheme from './components/Courses/CourseItem/CreateTheme';
 import Feedback from './components/Dialogs/Feedback';
 import Messages from './components/Dialogs/Messages';
+import CourseUsers from './components/Users/CourseUsers';
+import CourseGate from './components/Courses/CourseGate';
+import CoursesFilter from './components/Courses/CoursesFilter';
+import ErrorBoundary from './ErrorBoundary'
 
 function App() {
   const isAuth = useSelector((s) => s.profilePage.isAuth);
@@ -35,41 +39,46 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <div className="app-wrapper">
-          <Header />
-          <Navbar />
-          <div className="app-wrapper-content">
-            {!isAuth ? (
-              <Switch>
-                <Route exact path="/login" render={() => <Login />} />
-                <Route path="/registration" render={() => <RegistrationForm />} />
-                <Redirect to="/login" />
-              </Switch>
-            ) : (
-              <>
+        <ErrorBoundary>
+          <div className="app-wrapper">
+            <Header />
+            <Navbar />
+            <div className="app-wrapper-content">
+              {!isAuth ? (
                 <Switch>
-                  <Route path="/profile/:userId?" render={() => <Profile />} />
-                  <Route path="/feedback" render={() => <Feedback />} />
-                  <Route path="/messages" render={() => <Messages />} />
-                  <Route path="/news" component={News} />
-                  <Route path="/courses" render={() => <CoursesContainer />} />
-                  <Route path="/course/:courseId/chapter/:chapterId?" render={() => <ChapterItem />} />
-                  <Route path="/course/:courseId?" render={() => <CourseItem />} />
-                  <Route path="/mycourses" render={() => <Mycourses />} />
-                  <Route path="/mycourse/certificate/:courseId?" render={() => <CourseCertificate />} />
-                  <Route path="/disk" render={() => <Disk />} />
-                  <Route path="/admin" render={() => <Admin />} />
-                  <Route path="/users" render={() => <Users />} />
-                  <Route path="/profileditor" render={() => <ProfileInfoEdit />} />
-                  <Route path="/courseditor" render={() => <EditCourse />} />
-                  <Route path="/themeditor" render={() => <CreateTheme />} />
-                  <Redirect to="/profile" />
+                  <Route exact path="/login" render={() => <Login />} />
+                  <Route path="/registration" render={() => <RegistrationForm />} />
+                  <Redirect to="/login" />
                 </Switch>
-              </>
-            )}
+              ) : (
+                <>
+                  <Switch>
+                    <Route path="/profile/:userId?" render={() => <Profile />} />
+                    <Route path="/feedback" render={() => <Feedback />} />
+                    <Route path="/messages" render={() => <Messages />} />
+                    <Route path="/news" component={News} />
+                    <Route path="/themes" render={() => <CourseGate />} />
+                    <Route path="/courses-theme/:themeId?" render={() => <CoursesFilter />} />
+                    <Route path="/courses" render={() => <CoursesContainer />} />
+                    <Route path="/course/:courseId/chapter/:chapterId?" render={() => <ChapterItem />} />
+                    <Route path="/course/:courseId?" render={() => <CourseItem />} />
+                    <Route path="/learners/:courseId?" render={() => <CourseUsers />} />
+                    <Route path="/mycourses" render={() => <Mycourses />} />
+                    <Route path="/mycourse/certificate/:courseId?" render={() => <CourseCertificate />} />
+                    <Route path="/disk" render={() => <Disk />} />
+                    <Route path="/admin" render={() => <Admin />} />
+                    <Route path="/users" render={() => <Users />} />
+                    <Route path="/profileditor" render={() => <ProfileInfoEdit />} />
+                    <Route path="/courseditor" render={() => <EditCourse />} />
+                    <Route path="/themeditor" render={() => <CreateTheme />} />
+                    <Redirect to="/profile" />
+                  </Switch>
+                </>
+              )}
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </ErrorBoundary>
       </div>
     </BrowserRouter>
   );

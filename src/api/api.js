@@ -326,6 +326,21 @@ export function getAllCoursesAPI() {
   };
 }
 
+export const getFilteredCoursesAPI = async (themeId) => {
+  try {
+    const response = await axios.get(`${API_URL}theme/${themeId}/courses`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    if (e.response.data.error.message === "Courses not found") {
+      return [];
+    }
+    alert(e.response.data.message);
+  }
+}
+
 export function createNewsAPI(title, newsImg, description) {
   return async (dispatch) => {
     try {
@@ -459,6 +474,21 @@ export const putUserRoleAPI = async (userId, role) => {
   }
 };
 
+export const getCourseUsersAPI = async (courseId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}course/${courseId}/users`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
 export const getMyCoursesAPI = async (userId) => {
 //  return async (dispatch) => {
     try {
@@ -513,6 +543,21 @@ export const addCourseChapterAPI = async (courseId, title, content) => {
     const response = await axios.post(
       `${API_URL}course/${courseId}/chapter`,
       { courseId, title, content },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const deleteCourseChapterAPI = async (courseId, chapterId) => {
+  try {
+    const response = await axios.delete(
+      `${API_URL}course/${courseId}/chapter/${chapterId}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
     //alert(JSON.stringify(response.data, null, 2));
@@ -714,6 +759,23 @@ export const getAllThemesAPI = async () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }
     );
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    if (e.response.data.error.message === "Themes not found") {
+      return [];
+    }
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
+export const getCurrentThemeAPI = async (themeId) => {
+  try {
+    const response = await axios.get(`${API_URL}theme/${themeId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
     //alert(JSON.stringify(response.data, null, 2));
     console.log(JSON.stringify(response, null, 2));
     return response.data;

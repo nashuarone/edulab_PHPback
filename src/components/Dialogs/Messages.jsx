@@ -24,7 +24,7 @@ const Messages = () => {
               <div className={s.messageBock}>
                 <div className={s.messageItem}>{mes.message}</div>
                 <div>
-                  <NavLink to={"/profile/" + mes.id}>
+                  <NavLink to={"/profile/" + mes.user_id}>
                     <span className={s.deleteBtn}>
                       Перейти в профиль пользователя
                     </span>

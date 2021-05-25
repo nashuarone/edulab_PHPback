@@ -19,6 +19,7 @@ const Mycourses = (props) => {
   const isFetching = useSelector((s) => s.coursesPage.isFetching);
   const dispatch = useDispatch()
   const myCoursesIdArr = myCoursesData.map((it) => it.id);
+  const allProgress = useSelector((s) => s.coursesPage.courseProgress);
   useEffect(() => {
     dispatch(getAllCoursesAPI());
   }, [dispatch]);
@@ -31,7 +32,6 @@ const Mycourses = (props) => {
     }
     // eslint-disable-next-line
   }, [dispatch, myCoursesIdArr.length]);
-  const allProgress = useSelector((s) => s.coursesPage.courseProgress);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Мои курсы</div>

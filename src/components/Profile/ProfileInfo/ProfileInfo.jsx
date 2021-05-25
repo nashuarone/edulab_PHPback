@@ -67,7 +67,7 @@ const ProfileInfo = (props) => {
     genderText = "Мужской";
   }
   return (
-    <div>
+    <div className={s.profileInfoMain}>
       <div className={s.profileTitle}>
         <h3>
           Профиль{" "}

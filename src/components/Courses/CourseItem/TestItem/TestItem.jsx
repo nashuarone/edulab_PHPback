@@ -188,7 +188,7 @@ const TestItem = (props) => {
                               ) : null}
                               <Field
                                 className={s.regInputTest2}
-                                placeholder="Введите третий вариант ответа"
+                                placeholder="Введите четвертый вариант ответа"
                                 name="answer4"
                               />
                               {errors.answer4 && touched.answer4 ? (

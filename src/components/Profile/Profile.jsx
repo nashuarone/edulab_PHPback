@@ -1,5 +1,5 @@
 import React from 'react'
-import PostsContainer from './Posts/PostsContainer';
+//import PostsContainer from './Posts/PostsContainer';
 import s from "./Profile.module.css";
 import ProfileImg from './ProfileInfo/ProfileImg';
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
@@ -11,7 +11,7 @@ const Profile = () => {
       <ProfileImg />
       <div className={s.leftPad}>
         <ProfileInfoContainer />
-        <PostsContainer />
+        {/* <PostsContainer /> */}
       </div>
     </div>
   );

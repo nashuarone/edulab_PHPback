@@ -12,7 +12,7 @@ const News = (props) => {
   // }, [dispatch]);
   return (
     <div className={s.coursesPage}>
-      <div>Новости</div>
+      <div className={s.editBlockTitle}>Новости</div>
       {isAdmin && (
         <div className={s.editModeRed}>
           <EditNews props={props} />

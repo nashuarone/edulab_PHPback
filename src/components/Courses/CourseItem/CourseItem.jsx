@@ -76,7 +76,7 @@ const CourseItem = (props) => {
                 Формат: {currentCourseData.format === 1 ? "Онлайн" : "Офлайн"}
               </div>
               <div>Продолжительность: {currentCourseData.duration} часов</div>
-              <div>Ценность: {currentCourseData.value} баллов</div>
+              {/* <div>Ценность: {currentCourseData.value} баллов</div> */}
               <div>
                 <div>Темы курса</div>
                 {themesData.length > 0

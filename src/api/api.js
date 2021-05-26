@@ -229,7 +229,7 @@ export function searchFileAPI(search) {
   };
 }
 
-export function createCourseAPI(title, img, description, format, duration, value) {
+export function createCourseAPI(title, img, description, format, duration, value = 100) {
   return async (dispatch) => {
     try {
       const response = await axios.post(
@@ -278,7 +278,7 @@ export const updateCourseAPI = async (
   description,
   format,
   duration,
-  value,
+  value = 100,
 ) => {
   try {
     const response = await axios.put(

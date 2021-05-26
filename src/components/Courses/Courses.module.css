@@ -36,7 +36,7 @@
   width: 70%;
 }
 .courseDescription {
-  padding: 20px 0;
+  padding: 15px 0;
 }
 .editModeRed {
   box-shadow: 0px 0px 10px 5px rgba(255,0,0,0.5) inset;
@@ -56,9 +56,19 @@
   margin: 0 5px 5px auto;
   width: 98%;
 }
+.regInputHeight {
+  margin: 0 5px 5px auto;
+  width: 98%;
+  height: 50px;
+}
 .regInputEdit {
   margin: 0 5px 5px auto;
   width: 32%;
+}
+.regTextareaEdit {
+  margin: 0 5px 5px auto;
+  width: 98.7%;
+  height: 100px;
 }
 .regInputTest {
   margin: 0 5px 5px auto;

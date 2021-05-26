@@ -16,7 +16,7 @@ const EditCourseItemSkin = (props) => {
   const [img, setImg] = useState("");
   const [format, setFormat] = useState(1);
   const [duration, setDuration] = useState(null);
-  const [value, setValue] = useState(null);
+  const [value] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [themenum, setThemenum] = useState(1);
@@ -29,9 +29,9 @@ const EditCourseItemSkin = (props) => {
   const handlleChangeDu = (e) => {
     setDuration(e.target.value);
   };
-  const handlleChangeV = (e) => {
-    setValue(e.target.value);
-  };
+  // const handlleChangeV = (e) => {
+  //   setValue(e.target.value);
+  // };
   const handlleChangeT = (e) => {
     setTitle(e.target.value);
   };
@@ -85,14 +85,14 @@ const EditCourseItemSkin = (props) => {
                 type="number"
                 placeholder="Продолжительность в часах"
               />
-              <div>Ценность: {currentCourseData.value} баллов</div>
+              {/* <div>Ценность: {currentCourseData.value} баллов</div>
               <input
                 className={s.regInput}
                 value={value}
                 onChange={handlleChangeV}
                 type="number"
                 placeholder="Ценность (баллы)"
-              />
+              /> */}
             </div>
             <div className={s.descriptionItem}>
               <span className={s.tittleDecor}>{currentCourseData.title}</span>
@@ -108,8 +108,8 @@ const EditCourseItemSkin = (props) => {
               <div className={s.courseDescription}>
                 {currentCourseData.description}
               </div>
-              <input
-                className={s.regInput}
+              <textarea
+                className={s.regInputHeight}
                 value={description}
                 onChange={handlleChangeD}
                 type="text"

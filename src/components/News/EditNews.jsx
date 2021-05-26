@@ -19,7 +19,7 @@ const EditCourse = (props) => {
   };
   return (
     <div className={s.coursesPage}>
-      <div>Редактор новостей</div>
+      <div className={s.editBlockSubtitle}>Редактор новостей</div>
       <div>
         <div>
           <div>Добавить новость</div>

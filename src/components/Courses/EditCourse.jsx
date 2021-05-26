@@ -13,7 +13,7 @@ const EditCourse = (props) => {
   const [description, setDescription] = useState("");
   const [format, setFormat] = useState(1);
   const [duration, setDuration] = useState(null);
-  const [value, setValue] = useState(null);
+  const [value] = useState(null);
   const handlleChangeT = (e) => {
     setTitle(e.target.value);
   };
@@ -23,9 +23,9 @@ const EditCourse = (props) => {
   const handlleChangeD = (e) => {
     setDescription(e.target.value);
   };
-  const handlleChangeV = (e) => {
-    setValue(e.target.value);
-  };
+  // const handlleChangeV = (e) => {
+  //   setValue(e.target.value);
+  // };
   const handlleChangeDu = (e) => {
     setDuration(e.target.value);
   };
@@ -60,25 +60,25 @@ const EditCourse = (props) => {
             />
             <input
               className={s.regInputEdit}
-              value={description}
-              onChange={handlleChangeD}
-              type="text"
-              placeholder="Описание курса"
-            />
-            <input
-              className={s.regInputEdit}
               value={duration}
               onChange={handlleChangeDu}
               type="number"
               placeholder="Продолжительность в часах"
             />
-            <input
+            <textarea
+              className={s.regTextareaEdit}
+              value={description}
+              onChange={handlleChangeD}
+              type="text"
+              placeholder="Описание курса"
+            />
+            {/* <input
               className={s.regInputEdit}
               value={value}
               onChange={handlleChangeV}
               type="number"
               placeholder="Ценность (баллы)"
-            />
+            /> */}
             <label className={s.regInput}>
               Формат курса{" "}
               <select value={format} onChange={handlleChangeF}>

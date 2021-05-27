@@ -1,8 +1,8 @@
 const ADD_NEWS = "ADD_NEWS";
 const GET_NEWS = "GET_NEWS";
 const CREATE_NEWS = "CREATE_NEWS";
-//const DELETE_COURSE = "DELETE_COURSE";
-//const UPDATE_COURSE = "UPDATE_COURSE";
+const DELETE_NEWS = "DELETE_NEWS";
+const GET_FAKE_NEWS = "GET_FAKE_NEWS";
 
 let initialState = {
   newsData: [
@@ -50,13 +50,25 @@ const newsReducer = (state_c = initialState, action) => {
         newsData: [...action.newses],
       };
     }
+    case GET_FAKE_NEWS: {
+      return {
+        ...state_c,
+        newsData: [...state_c.newsData],
+      };
+    }
     case CREATE_NEWS: {
       return {
         ...state_c,
         newsData: [
           ...state_c.newsData,
-          {...action.news, id: state_c.newsData.length + 1},
+          { ...action.news, id: state_c.newsData.length + 1 },
         ],
+      };
+    }
+    case DELETE_NEWS: {
+      return {
+        ...state_c,
+        newsData: state_c.newsData.filter((it) => it.id !== action.newsId),
       };
     }
     default:
@@ -66,10 +78,15 @@ const newsReducer = (state_c = initialState, action) => {
 
 export const addNews = (news) => ({ type: ADD_NEWS, news });
 export const getAllNews = (newses) => ({ type: GET_NEWS, newses });
+export const getFakeNews = () => ({ type: GET_FAKE_NEWS });
 
 export const createNews = (title, newsImg, description) => ({
   type: CREATE_NEWS,
   news: { title, newsImg, description },
+});
+export const deleteNews = (newsId) => ({
+  type: DELETE_NEWS,
+  newsId
 });
 
 export default newsReducer;

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllThemes, createTheme } from "../../../redux/coursesReducer";
+import {
+  getAllThemes,
+  createTheme,
+  deleteTheme,
+} from "../../../redux/coursesReducer";
 import s from "../Courses.module.css";
 
 const CreateTheme = (props) => {
@@ -13,7 +17,7 @@ const CreateTheme = (props) => {
   };
   useEffect(() => {
     dispatch(getAllThemes());
-  }, [dispatch]);
+  }, [dispatch, allThemesData.length]);
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Редактор тем</div>
@@ -38,13 +42,16 @@ const CreateTheme = (props) => {
             </button>
           </div>
         </div>
-        <div>
-          Все темы
-        </div>
-        {allThemesData.map((c) => (
-          <div className={s.courseItem} key={c.id}>
-            <div className={s.courseItemFlex}>
-              <div>{c.title}</div>
+        <div>Все темы</div>
+        {allThemesData.map((theme) => (
+          <div className={s.courseItem} key={theme.id}>
+            <div className={s.courseThemeFlex}>
+              <div>{theme.title}</div>
+              <span>
+                <button onClick={() => dispatch(deleteTheme(+theme.id))}>
+                  Удалить тему
+                </button>
+              </span>
             </div>
           </div>
         ))}

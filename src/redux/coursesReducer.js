@@ -22,6 +22,7 @@ import {
   getAllCourseProgressAPI,
   deleteCourseChapterAPI,
   getFilteredCoursesAPI,
+  deleteThemeAPI,
 } from "../api/api";
 
 const ADD_COURSE = "ADD_COURSE";
@@ -43,6 +44,7 @@ const SET_ANSWER = "SET_ANSWER";
 const CREATE_THEME = "CREATE_THEME";
 const SET_ALL_COMMON_THEMES = "SET_ALL_COMMON_THEMES";
 const SET_THEME = "SET_THEME";
+const UNSET_COMMON_THEME = "UNSET_COMMON_THEME";
 const SET_ALL_THEMES = "SET_ALL_THEMES";
 const SET_CURRENT_THEME = "SET_CURRENT_THEME";
 const SET_COURSE_PROGRESS = "SET_COURSE_PROGRESS";
@@ -210,6 +212,12 @@ const coursesReducer = (state_c = initialState, action) => {
         allThemesData: [...action.themes],
       };
     }
+    case UNSET_COMMON_THEME: {
+      return {
+        ...state_c,
+        allThemesData: state_c.allThemesData.filter((it) => it.id !== action.themeId),
+      };
+    }
     case SET_THEME: {
       return {
         ...state_c,
@@ -271,6 +279,7 @@ export const setAnswer = (answer) => ({ type: SET_ANSWER, answer });
 export const setCreatedTheme = (theme) => ({ type: CREATE_THEME, theme });
 export const setAllCommonThemes = (themes) => ({ type: SET_ALL_COMMON_THEMES, themes });
 export const setTheme = (theme) => ({ type: SET_THEME, theme });
+export const unsetCommonTheme = (themeId) => ({ type: UNSET_COMMON_THEME, themeId });
 export const setCurrentTheme = (currentTheme) => ({ type: SET_CURRENT_THEME, currentTheme });
 export const setAllThemes = (themes) => ({ type: SET_ALL_THEMES, themes });
 export const setCourseProgress = (progresses) => ({ type: SET_COURSE_PROGRESS, progresses });
@@ -507,6 +516,16 @@ export const createTheme = (theme) => {
       dispatch(toggleIsFetching(false));
       dispatch(setCreatedTheme(theme));
       console.log(theme);
+    });
+  };
+};
+export const deleteTheme = (themeId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    deleteThemeAPI(themeId).then((ok) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(unsetCommonTheme(themeId));
+      console.log(ok);
     });
   };
 };

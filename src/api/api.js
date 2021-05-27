@@ -771,6 +771,21 @@ export const getAllThemesAPI = async () => {
   }
 };
 
+export const deleteThemeAPI = async (themeId) => {
+  try {
+    const response = await axios.delete(`${API_URL}theme/${themeId}`,
+    {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    //alert(JSON.stringify(response.data, null, 2));
+    console.log(JSON.stringify(response, null, 2));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    alert(e.response.data.error.message);
+  }
+};
+
 export const getCurrentThemeAPI = async (themeId) => {
   try {
     const response = await axios.get(`${API_URL}theme/${themeId}`, {

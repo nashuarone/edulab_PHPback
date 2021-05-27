@@ -17,6 +17,10 @@
 .courseItemFlex {
   display: flex;
 }
+.courseThemeFlex {
+  display: flex;
+  justify-content: space-between;
+}
 .coursePicture {
   width: 36%;
 }

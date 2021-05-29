@@ -50,9 +50,7 @@ const dialogsReducer = (state_d = initialState, action) => {
   } else if (action.type === DELETE_MESSAGE_MAIL) {
     return {
       ...state_d,
-      mailMessagesData: [
-        state_d.mailMessagesData.filter((it) => it.id !== action.messageId),
-      ],
+      mailMessagesData: state_d.mailMessagesData.filter((it) => it.id !== action.messageId),
     };
   } else if (action.type === GET_MESSAGES_MAIL) {
     return {

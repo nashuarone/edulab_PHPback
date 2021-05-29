@@ -81,9 +81,7 @@ const coursesReducer = (state_c = initialState, action) => {
     case KICK_COURSE: {
       return {
         ...state_c,
-        coursesData: [
-          state_c.coursesData.filter((it) => it.course_id !== action.courseId),
-        ],
+        coursesData: state_c.coursesData.filter((it) => it.id !== action.courseId),
       };
     }
     case UPDATE_COURSE: {

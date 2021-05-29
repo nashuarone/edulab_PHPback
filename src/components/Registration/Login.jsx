@@ -24,7 +24,7 @@ const Login = () => {
           value={email}
           onChange={handlleChangeE}
           type="text"
-          placeholder="Ведите email"
+          placeholder="Введите email"
         />
         <input
           className={s.regInput}

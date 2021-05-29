@@ -109,7 +109,7 @@ const CourseItem = (props) => {
                         </button>
                       </NavLink>
                     </div>
-                    <div>
+                    {isTeacher && (<div>
                       <button
                         className={s.courseBtn}
                         onClick={() =>
@@ -118,7 +118,7 @@ const CourseItem = (props) => {
                       >
                         Удалить главу
                       </button>
-                    </div>
+                    </div>)}
                     <div>
                       {/* <div className='editor' dangerouslySetInnerHTML={{__html: chap.content}}></div> */}
                       <CKEditor

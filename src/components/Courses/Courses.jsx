@@ -93,7 +93,7 @@ const Courses = (props) => {
               <div>
                 <button
                   className={s.courseBtn}
-                  onClick={() => dispatch(deleteCourse(c.id, currentLearnerId))}
+                  onClick={() => dispatch(deleteCourse(c.id))}
                 >
                   Удалить курс
                 </button>

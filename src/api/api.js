@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { setLearner } from '../redux/profileReducer'
 import { setFiles, addFile, deleteFileAC } from "../redux/fileReducer";
 import { addCourse, getAllCourses } from '../redux/coursesReducer';
 import { API_URL } from "../config";
@@ -28,41 +27,38 @@ export const registrationAPI = async (email, password, first_name, second_name, 
 export const loginAPI = async (email, password) => {
   //return async dispatch => {
   try {
-    debugger;
     const response = await axios.post(`${API_URL}auth/login`, {
       email,
       password,
     });
     //dispatch(setLearner(response.data.user))
     localStorage.setItem("token", response.data.token);
-    const user = await axios.get(`${API_URL}user`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    // const user = await axios.get(`${API_URL}user`, {
+    //   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    // });
     console.log(response.data);
-    console.log(user.data);
-    return user
+    return response;
   } catch (e) {
-    debugger;
     alert(e.response.data.error.message);
   }
   //}
 };
 
-export const authAPI = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(
-        `${API_URL}user`, {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}}
-      );
-      dispatch(setLearner(response.data));
-      //localStorage.setItem("token", response.data.token);
-      console.log(response.data);
-    } catch (e) {
-      debugger
-      //localStorage.removeItem('token')
-      alert(e.response.data.error.message);
+export const authAPI = async () => {
+  try {
+    const response = await axios.get(
+      `${API_URL}user`, {headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}}
+    );
+    //localStorage.setItem("token", response.data.token);
+    console.log(response.data);
+    return response;
+  } catch (e) {
+    if (e.response.data.error.message === "Unauthorized.") {
+      return e.response.data.error.message;
     }
-  };
+    //localStorage.removeItem('token')
+    console.log(e.response.data.error.message);
+  }
 };
 
 export const uploadAvatarAPI = async (avatar) => {

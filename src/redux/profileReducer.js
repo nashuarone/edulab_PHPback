@@ -1,4 +1,5 @@
 import {
+  authAPI,
   registrationAPI,
   loginAPI,
   uploadAvatarAPI,
@@ -144,6 +145,17 @@ export const toggleIsLoginButton = (fetchingStatus) => ({
   fetchingStatus,
 });
 
+export const auth = () => (dispatch) => {
+  dispatch(toggleIsLoginButton(true));
+  return authAPI().then((res) => {
+    dispatch(toggleIsLoginButton(false));
+    if (res === "Unauthorized.") {
+      dispatch(logout());
+    } else {
+      dispatch(setLearner(res.data));
+    }
+  });
+};
 export const createUserProfile = (email, password, first_name, second_name, birth_date) => (dispatch) => {
   dispatch(toggleIsLoginButton(true));
   registrationAPI(email, password, first_name, second_name, birth_date).then((res) => {
@@ -155,7 +167,9 @@ export const getUserProfile = (email, password) => (dispatch) => {
   dispatch(toggleIsLoginButton(true));
   loginAPI(email, password).then((res) => {
     dispatch(toggleIsLoginButton(false));
-    dispatch(setLearner(res.data));
+    dispatch(auth());
+    console.log(res.data)
+    //dispatch(setLearner(res.data));
   });
 };
 export const getAnotherUserProfile = (userId) => (dispatch) => {

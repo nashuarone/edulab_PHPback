@@ -29,11 +29,13 @@ const News = (props) => {
             <div className={s.descriptionItem}>
               <span className={s.tittleDecor}>{c.title}</span>
               <div className={s.courseDescription}>{c.description}</div>
-              <span>
-                <button onClick={() => dispatch(deleteNews(c.id))}>
-                  Удалить новость
-                </button>
-              </span>
+              {isAdmin && (
+                <span>
+                  <button onClick={() => dispatch(deleteNews(c.id))}>
+                    Удалить новость
+                  </button>
+                </span>
+              )}
             </div>
           </div>
         ))}

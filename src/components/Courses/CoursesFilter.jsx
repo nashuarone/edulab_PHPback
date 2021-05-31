@@ -52,7 +52,7 @@ const CoursesFilter = (props) => {
                     )}
                     <div>Формат: {c.format === 1 ? "Онлайн" : "Вебинар"}</div>
                     <div>Продолжительность: {c.duration} часов</div>
-                    <div>Ценность: {c.value} баллов</div>
+                    {/* <div>Ценность: {c.value} баллов</div> */}
                   </div>
                   <div className={s.descriptionItem}>
                     <span className={s.tittleDecor}>{c.title}</span>

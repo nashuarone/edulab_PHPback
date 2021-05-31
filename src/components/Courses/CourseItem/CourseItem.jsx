@@ -39,7 +39,12 @@ const CourseItem = (props) => {
   return (
     <div className={s.coursesPage}>
       <div className={s.editBlockTitle}>Текущий курс</div>
-      <NavLink to={"/courses"}>
+      <NavLink to={"/mycourses"}>
+        <div title="выход из редактора" className={s.editBlockSubtitle}>
+          <i className="fas fa-arrow-alt-circle-left"></i> К моим курсам
+        </div>
+      </NavLink>
+      <NavLink to={"/themes"}>
         <div title="выход из редактора" className={s.editBlockSubtitle}>
           <i className="fas fa-arrow-alt-circle-left"></i> На страницу курсов
         </div>
@@ -109,16 +114,18 @@ const CourseItem = (props) => {
                         </button>
                       </NavLink>
                     </div>
-                    {isTeacher && (<div>
-                      <button
-                        className={s.courseBtn}
-                        onClick={() =>
-                          dispatch(deleteCourseChapter(courseId, chap.id))
-                        }
-                      >
-                        Удалить главу
-                      </button>
-                    </div>)}
+                    {isTeacher && (
+                      <div>
+                        <button
+                          className={s.courseBtn}
+                          onClick={() =>
+                            dispatch(deleteCourseChapter(courseId, chap.id))
+                          }
+                        >
+                          Удалить главу
+                        </button>
+                      </div>
+                    )}
                     <div>
                       {/* <div className='editor' dangerouslySetInnerHTML={{__html: chap.content}}></div> */}
                       <CKEditor

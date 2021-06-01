@@ -53,8 +53,8 @@ export const authAPI = async () => {
     console.log(response.data);
     return response;
   } catch (e) {
-    if (e.response.data.error.message === "Unauthorized.") {
-      return e.response.data.error.message;
+    if (e.response.data.error.status_code === 401) {
+      return e.response.data.error.status_code;
     }
     //localStorage.removeItem('token')
     console.log(e.response.data.error.message);

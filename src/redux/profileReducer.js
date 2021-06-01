@@ -149,7 +149,7 @@ export const auth = () => (dispatch) => {
   dispatch(toggleIsLoginButton(true));
   return authAPI().then((res) => {
     dispatch(toggleIsLoginButton(false));
-    if (res === "Unauthorized.") {
+    if (res === 401) {
       dispatch(logout());
     } else {
       dispatch(setLearner(res.data));
